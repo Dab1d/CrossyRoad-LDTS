@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -41,9 +42,11 @@ public class GameTest {
     @Test
     public void testDrawCallsClearAndRefresh() throws IOException {
         Screen mockScreen = Mockito.mock(Screen.class);
+        TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
 
         //mockito screen does not have get terminal size so we gave it one
         when(mockScreen.getTerminalSize()).thenReturn(new TerminalSize(80, 40));
+        when(mockScreen.newTextGraphics()).thenReturn(mockGraphics);
 
         Game game = new Game(mockScreen); //constructor that accepts screen
 
