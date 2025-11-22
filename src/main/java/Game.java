@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -10,6 +11,8 @@ public class Game {
     private Screen screen;
     private int width;
     private int height;
+
+    private Space space;
 
     public Game() throws IOException {
         Terminal terminal = new DefaultTerminalFactory().createTerminal(); //crate the terminal window
@@ -23,6 +26,8 @@ public class Game {
         TerminalSize size = screen.getTerminalSize();
         this.width = Math.max(20, size.getColumns());
         this.height = Math.max(20, size.getRows());
+
+        this.space = new Space(width, height); // create the game space
     }
 
     /** mock testing constructor */
@@ -31,13 +36,25 @@ public class Game {
         TerminalSize size = screen.getTerminalSize();
         this.width = Math.max(20, size.getColumns());
         this.height = Math.max(20, size.getRows());
+
+        this.space = new Space(width, height);
     }
 
     public void draw() throws IOException {
         screen.clear(); // cleans the screen buffer
-        //arena.draw();
-        screen.refresh(); //update the screen with the new info
 
+        TextGraphics textGraphics = screen.newTextGraphics(); // create TextGraphics that will be passed to the space
+
+        TerminalSize newSize = screen.doResizeIfNecessary(); // returns null if screen did not change dimensios
+        if (newSize != null) { // if changed dimensions draw the new space with the new dimension;
+            TerminalSize size = screen.getTerminalSize();
+            space.setWidth(size.getColumns());
+            space.setHeight(size.getRows());
+        }
+
+        space.draw(textGraphics); //draw the game space
+
+        screen.refresh(); //update the screen with the new info
     }
     
     public void run() throws IOException {
