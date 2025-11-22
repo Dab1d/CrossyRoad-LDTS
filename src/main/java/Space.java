@@ -13,8 +13,7 @@ public class Space {
     public Space(int width, int height) {
         this.width = width;
         this.height = height;
-        this.min_x = 1;
-        this.max_x = width - 2;
+        updateLimits();
     }
 
     public void draw(TextGraphics graphics) {
@@ -27,10 +26,17 @@ public class Space {
     /** setters */
     public void setWidth(int width) {
         this.width = width;
+        updateLimits();
 
     }
     public void setHeight(int height) {
         this.height = height;
+        updateLimits();
+    }
+
+    private void updateLimits() {
+        this.min_x = 1;
+        this.max_x = width - 2;
     }
 
     /** getters */
