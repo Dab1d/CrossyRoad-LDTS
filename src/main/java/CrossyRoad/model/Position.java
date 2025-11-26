@@ -13,7 +13,7 @@ public class Position {
         return new Position(x_ - 1, y_);
     }
 
-    public Position getRigth(){
+    public Position getRight(){
         return new Position(x_ + 1, y_);
     }
 
