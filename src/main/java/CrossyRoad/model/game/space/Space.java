@@ -1,8 +1,7 @@
 package CrossyRoad.model.game.space;
 
-import CrossyRoad.model.game.elements.Chicken;
+import CrossyRoad.model.game.elements.*;
 import CrossyRoad.model.Position;
-import CrossyRoad.model.game.elements.Wall;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -19,6 +18,9 @@ public class Space {
     private final int height;
 
     private Chicken chicken;
+    private List<Bush> bushes;
+    private List<Truck> truckes;
+    private List<Car> cars;
 
     private List<Wall> walls;
 
@@ -40,9 +42,15 @@ public class Space {
         return chicken;
     }
 
-    public void setChicken(Chicken chicken) {
-        this.chicken = chicken;
-    }
+    public void setChicken(Chicken chicken) { this.chicken = chicken;}
+
+    public List<Bush> getBushes() { return bushes;}
+
+    public void setBushes(List<Bush> bush){this.bushes = bush;}
+
+    public List<Car> getCars() {return cars;}
+
+    public void setCars(List<Car> cars){this.cars = cars;}
 
     public List<Wall> getWalls() {
         return walls;
