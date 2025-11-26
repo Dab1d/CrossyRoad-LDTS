@@ -116,12 +116,16 @@ public class LanternaGUI implements GUI {
     }
     @Override
     public void drawBush(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'W', "#808080");
+        drawCharacter(position.getX(), position.getY(), 'W', "#97D077");
     }
     @Override
     public void drawCar(Position position) {
         drawCharacter(position.getX(), position.getY(), '+', "#C4A480");
     }
+    /*@Override
+    public void drawRiver(Position position) {
+        drawCharacter(position.getX(), position.getY(), '-', "#7EA6E0");
+    }*/
 
     @Override
     public void clear() {

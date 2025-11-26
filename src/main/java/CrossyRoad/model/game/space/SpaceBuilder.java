@@ -12,6 +12,7 @@ public abstract class SpaceBuilder {
         Space space = new Space(getWidth(), getHeight());
         space.setChicken(createChicken());
         space.setWalls(createWalls());
+        space.setBushes(createBushes());
         return space;
     }
 
@@ -22,4 +23,8 @@ public abstract class SpaceBuilder {
     protected abstract List<Wall> createWalls();
 
     protected abstract Chicken createChicken();
+
+    protected abstract List<Bush> createBushes();
+
+    //protected abstract List<River> createRiver();
 }
