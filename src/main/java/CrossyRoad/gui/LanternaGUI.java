@@ -30,6 +30,7 @@ public class LanternaGUI implements GUI {
         Terminal terminal = createTerminal(width, height, fontConfig);
         this.screen = createScreen(terminal);
     }
+
     private Screen createScreen(Terminal terminal) throws IOException {
         final Screen screen;
         screen = new TerminalScreen(terminal);
@@ -92,8 +93,8 @@ public class LanternaGUI implements GUI {
         drawCharacter(position.getX(), position.getY(), 'C', "#FF00FF");
     }
 
+    @Override
     public void drawWalls(Position position) {
-
         drawCharacter(position.getX(), position.getY(), '#', "#FFFFFF");
     }
 
@@ -104,10 +105,22 @@ public class LanternaGUI implements GUI {
         tg.putString(position.getX(), position.getY(), text);
     }
 
-    private void drawCharacter(int x,int y, char c, String color) {
+    private void drawCharacter(int x, int y, char c, String color) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setForegroundColor(TextColor.Factory.fromString(color));
         graphics.putString(x, y, "" + c);
+    }
+    @Override
+    public void drawTruck(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'T', "#FFFF00");
+    }
+    @Override
+    public void drawBush(Position position) {
+        drawCharacter(position.getX(), position.getY(), 'W', "#808080");
+    }
+    @Override
+    public void drawCar(Position position) {
+        drawCharacter(position.getX(), position.getY(), '+', "#C4A480");
     }
 
     @Override

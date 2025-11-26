@@ -12,6 +12,12 @@ public interface GUI {
 
     void drawWalls(Position position);
 
+    void drawTruck(Position position);
+
+    void drawCar(Position position);
+
+    void drawBush(Position position);
+
     void drawText(Position position, String text, String color);
 
     void clear();

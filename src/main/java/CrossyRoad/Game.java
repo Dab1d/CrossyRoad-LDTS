@@ -22,8 +22,11 @@ public class Game {
     public void start() throws IOException {
         while(true){
             gui.clear();
-
+            /*provisório*/
             gui.drawChicken(new Position(10,10));
+            gui.drawTruck(new Position(5,5));
+            gui.drawCar(new Position(4,4));
+            gui.drawBush(new Position(2,4));
 
             for (int c = 0; c < 20; c++) {
                 gui.drawWalls(new Position(c, 0));
