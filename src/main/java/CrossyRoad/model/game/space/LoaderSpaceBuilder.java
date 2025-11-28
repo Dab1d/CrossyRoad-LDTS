@@ -90,7 +90,7 @@ public class LoaderSpaceBuilder extends SpaceBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++) {
-                if (line.charAt(x) == '-') river.add(new River(x, y));
+                if (line.charAt(x) == '~') river.add(new River(x, y));
             }
         }
         return river;
@@ -138,7 +138,7 @@ public class LoaderSpaceBuilder extends SpaceBuilder {
         for (int y = 0; y < lines.size(); y++) {
             String line = lines.get(y);
             for (int x = 0; x < line.length(); x++) {
-                if (line.charAt(x) == 'E') endlines.add(new EndLine(x, y));
+                if (line.charAt(x) == '=') endlines.add(new EndLine(x, y));
             }
         }
         return endlines;

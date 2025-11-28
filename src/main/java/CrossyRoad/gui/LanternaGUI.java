@@ -118,7 +118,7 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawBush(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'W', "#97D077");
+        drawCharacter(position.getX(), position.getY(), '█', "#97D077");
     }
 
     @Override
@@ -128,16 +128,16 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawRiver(Position position) {
-        drawCharacter(position.getX(), position.getY(), '-', "#7EA6E0");
+        drawCharacter(position.getX(), position.getY(), '~', "#7EA6E0");
     }
 
     @Override
     public void drawLog(Position position) {
-        drawCharacter(position.getX(), position.getY(), 'L', "#FF00FF");
+        drawCharacter(position.getX(), position.getY(), '-', "#905923");
     }
 
     @Override
-    public void drawEndLine(Position position) {drawCharacter(position.getX(), position.getY(), 'E', "#FF0000");}
+    public void drawEndLine(Position position) {drawCharacter(position.getX(), position.getY(), '=', "#F00000");}
 
     @Override
     public void clear() {
