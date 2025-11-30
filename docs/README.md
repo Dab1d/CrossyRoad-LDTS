@@ -33,7 +33,12 @@ strategy and precision.
 ## Design
 ***
 
-> FULL UML
+<p align="center" justify="center">
+  <img src="/docs/images/fullUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 1. UML Classes</i></b>
+</p>
 ***
 ### General Structure
 #### Problem in Context:
@@ -50,7 +55,13 @@ allowing the chicken and menus to behave differently depending on the current st
 Model classes store game data, like chicken position.
 Controller classes (not implemented yet) handle game logic, movement, collision checks, and level progression.
 View classes render the game visuals and menus on the screen.
-> ->Colocar imagem do UML
+
+<p align="center" justify="center">
+  <img src="/docs/images/UML_Elem_View.jpeg"/>
+</p>
+<p align="center">
+  <b><i>Fig 2. UML Classes View and Element</i></b>
+</p>
 
 #### Consequences:
 Code is well-organized and follows the basics of the SOLID principles as none class ir responsible for more than one task like set position and drawing to the screen at the same time.
@@ -91,7 +102,13 @@ We have applied the **_Facade_** pattern. A facade provides a simple interface t
 contains lots of moving parts, allowing us to only include the features that really matter.
 
 #### Implementation:
->->IMAGEM UML
+
+<p align="center" justify="center">
+  <img src="/docs/images/GUI_UML.jpeg"/>
+</p>
+<p align="center">
+  <b><i>Fig 3. UML Class GUI</i></b>
+</p>
 
 These classes can be found in the following files:
 - [Game](../src/main/java/com/g57/Game.java)
