@@ -70,8 +70,6 @@ New features can be added with minimal impact on existing code.
 
 ### Input Handling
 
-### Input Handling
-
 #### Problem in Context
 Our game receives input from the keyboard. A naive approach could involve continuous polling for key presses, which is inefficient because the program might repeatedly check for input even when the user is inactive. This would consume unnecessary resources and complicate the code structure.
 
