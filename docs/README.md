@@ -23,8 +23,7 @@ This project was developed by Dário Amaral (up202405681@edu.fe.up.pt), David Fe
 
 ## Planned Features
 
-The main goal is to extend the base game by adding new features while ensuring code quality through systematic testing. The key features I implemented/am implementing include:
-
+The main goal is to extend the base game by adding new features while ensuring code quality through systematic testing. The key features we implemented/are implementing include:
 - **Game Controller** - Manages the main game loop, handles user input, and updates the Chicken state.
 
 - **Grafics for Elements** - Improves the visual representation of characters and game objects to avoid confusion.
