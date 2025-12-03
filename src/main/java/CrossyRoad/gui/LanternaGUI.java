@@ -85,7 +85,7 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
 
-        
+
         return ACTION.NONE;
     }
 
@@ -96,7 +96,7 @@ public class LanternaGUI implements GUI {
         tg.putString(position.getX(), position.getY(), text);
     }
 
-    public void drawCharacter(int x, int y, char c, String color) {
+    publi   c void drawCharacter(int x, int y, char c, String color) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setForegroundColor(TextColor.Factory.fromString(color));
         graphics.putString(x, y, "" + c);
