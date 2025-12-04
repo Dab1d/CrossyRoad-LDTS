@@ -5,7 +5,6 @@ import CrossyRoad.model.Position;
 import CrossyRoad.model.menu.Menu;
 import CrossyRoad.view.Viewer;
 
-import java.io.IOException;
 
 public class MenuView extends Viewer<Menu> {
     public MenuView(Menu menu) {
@@ -15,6 +14,10 @@ public class MenuView extends Viewer<Menu> {
     @Override
     public void drawElements(GUI gui) {
         gui.drawText(new Position(5, 5), "Menu", "#FFFFFF");
+
+        gui.drawText(new Position(3, 15), "Press Enter", "#FFFFFF");
+        gui.drawText(new Position(4, 16), "to Select", "#FFFFFF");
+
 
         for (int i = 0; i < getModel().getNumberEntries(); i++)
             gui.drawText(
