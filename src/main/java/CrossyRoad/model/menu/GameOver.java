@@ -11,7 +11,7 @@ public class GameOver {
                 "",
                 "",
                 "-> Press Q",
-                "   to return."
+                "   to return"
         );
     }
 

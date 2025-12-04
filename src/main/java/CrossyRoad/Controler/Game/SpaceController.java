@@ -5,6 +5,7 @@ import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.model.menu.Menu;
+import CrossyRoad.state.EndLineState;
 import CrossyRoad.state.GameOverState;
 import CrossyRoad.state.MenuState;
 
@@ -46,6 +47,12 @@ public class SpaceController extends Controller<Space> {
         if (chickenDied()) {
             game.setState(new GameOverState());
         }
+
+        if (getModel().reachedEndLine()) { // Add this in Space
+            game.setState(new EndLineState());
+        }
+
+
     }
 }
 

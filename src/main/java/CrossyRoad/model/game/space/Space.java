@@ -93,9 +93,17 @@ public class Space {
                 return true;
             }
         }
-
         return false;
     }
+
+    public boolean reachedEndLine() {
+        Position chickenPos = chicken.getPosition();
+        for (EndLine endline : endlines) {
+            if (chickenPos.equals(endline.getPosition())) return true;
+        }
+        return false;
+    }
+
 
 
 
