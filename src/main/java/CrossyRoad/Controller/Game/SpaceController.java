@@ -6,8 +6,10 @@ import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.model.menu.Menu;
+import CrossyRoad.model.menu.Pause;
 import CrossyRoad.state.GameOverState;
 import CrossyRoad.state.MenuState;
+import CrossyRoad.state.PauseState;
 
 import java.io.IOException;
 
@@ -36,12 +38,6 @@ public class SpaceController extends Controller<Space> {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
-        //quit anytime (use this or no?)
-        if (action == GUI.ACTION.QUIT) {
-            game.setState(new MenuState(new Menu()));
-            return;
-        }
-
         switch (action) {
             case UP:
             case DOWN:
@@ -50,6 +46,9 @@ public class SpaceController extends Controller<Space> {
                 ChickenController.step(game, action, time);
                 EndLineController.step(game, action, time);
                 break;
+            case PAUSE:
+                game.setPrevious(game.getState());
+                game.setState(new PauseState(new Pause()));
             default:
                 break;
         }
@@ -62,6 +61,7 @@ public class SpaceController extends Controller<Space> {
         game.getGUI().refresh();
 
         if (chickenDied()) {
+            game.setLevel(1);
             game.setState(new GameOverState());
         }
         
