@@ -1,5 +1,6 @@
 package CrossyRoad.Controller.Game;
 
+import CrossyRoad.Controler.Game.RiverController;
 import CrossyRoad.Controller.Controller;
 import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
@@ -15,19 +16,19 @@ import java.io.IOException;
 public class SpaceController extends Controller<Space> {
     private final ChickenController ChickenController;
     private final EndLineController EndLineController;
-    //private final TruckController TruckController;
-    //private final CarController CarController;
-    //private final LogController LogController;
-    //private final RiverController RiverController;
+    private final TruckController TruckController;
+    private final CarController CarController;
+    // private final LogController LogController;
+    private final RiverController RiverController;
 
     public SpaceController(Space space) {
         super(space);
         this.ChickenController = new ChickenController(space);
         this.EndLineController = new EndLineController(space);
-        //this.TruckController = new TruckController(space);
-        //this.CarController = new CarController(space);
+        this.TruckController = new TruckController(space);
+        this.CarController = new CarController(space);
         //this.LogController = new LogController(space);
-        //this.RiverController = new RiverController(space);
+        this.RiverController = new RiverController(space);
     }
 
     private boolean chickenDied() {
@@ -51,12 +52,19 @@ public class SpaceController extends Controller<Space> {
             default:
                 break;
         }
+        CarController.step(game, GUI.ACTION.NONE, time);
+        TruckController.step(game, GUI.ACTION.NONE, time);
+        RiverController.step(game, GUI.ACTION.NONE, time);
+
+        game.getGUI().clear();
+        getModel().draw(game.getGUI());
+        game.getGUI().refresh();
 
         if (chickenDied()) {
             game.setLevel(1);
             game.setState(new GameOverState());
         }
-
+        
     }
 }
 
