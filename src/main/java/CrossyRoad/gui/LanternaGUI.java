@@ -96,6 +96,14 @@ public class LanternaGUI implements GUI {
         tg.putString(position.getX(), position.getY(), text);
     }
 
+    @Override
+    public void drawPixel(double x, double y, String color_) {
+        var graphics = this.screen.newTextGraphics();
+        TextColor color = TextColor.Factory.fromString(color_);
+        graphics.setBackgroundColor(color);
+        graphics.putString((int) x, (int) y, " "); // Use a space character to create a "pixel"
+    }
+
     public void drawCharacter(int x, int y, char c, String color) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setForegroundColor(TextColor.Factory.fromString(color));

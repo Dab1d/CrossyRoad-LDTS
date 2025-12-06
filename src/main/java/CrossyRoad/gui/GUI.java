@@ -1,6 +1,7 @@
 package CrossyRoad.gui;
 
 import CrossyRoad.model.Position;
+import com.googlecode.lanterna.TextColor;
 
 import java.io.IOException;
 
@@ -11,6 +12,8 @@ public interface GUI {
     void drawCharacter(int x, int y, char c, String color);
 
     void drawText(Position position, String text, String color);
+
+    void drawPixel(double x, double y, String color);
 
     void clear();
 

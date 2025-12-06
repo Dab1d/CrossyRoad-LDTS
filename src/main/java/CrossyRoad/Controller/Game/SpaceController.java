@@ -57,10 +57,6 @@ public class SpaceController extends Controller<Space> {
         RiverController.step(game, GUI.ACTION.NONE, time);
         LogController.step(game, GUI.ACTION.NONE, time);
 
-        game.getGUI().clear();
-        getModel().draw(game.getGUI());
-        game.getGUI().refresh();
-
         if (chickenDied()) {
             game.setLevel(1);
             game.setState(new GameOverState());
