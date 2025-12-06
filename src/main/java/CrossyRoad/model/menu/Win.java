@@ -33,7 +33,7 @@ public class Win {
     }
 
     public boolean isSelectedExit() {
-        return isSelected(2);
+        return isSelected(1);
     }
 
     public boolean isSelectedRestart() {return isSelected(0);}
