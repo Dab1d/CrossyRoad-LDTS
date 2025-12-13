@@ -1,7 +1,6 @@
 package CrossyRoad.view.game;
 
 import CrossyRoad.gui.GUI;
-import CrossyRoad.model.Position;
 import CrossyRoad.model.game.elements.Element;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.view.Viewer;
@@ -16,6 +15,7 @@ public class GameViewer extends Viewer<Space> {
     @Override
     public void drawElements(GUI gui) {
         drawElements(gui,getModel().getBushes(),new BushViewer());
+        drawElements(gui, getModel().getCoins(), new CoinViewer());
         drawElements(gui, getModel().getCars(), new CarViewer());
         drawElements(gui, getModel().getLogs(), new LogViewer());
         drawElements(gui, getModel().getEndlines(), new EndLineViewer());
