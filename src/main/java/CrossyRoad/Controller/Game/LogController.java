@@ -36,18 +36,32 @@ public class LogController extends Controller<Space> {
 
     private void moveLog() {
         int width = getModel().getWidth();
+        Position chickenPos = getModel().getChicken().getPosition();
+
+        // prevent the chicken from moving to the next log when it steps onto a log
+        boolean chickenMoved = false;
+
         for (Log log : getModel().getLogs()) {
-            Position pos = log.getPosition();
-            int speed = speeds.get(log);
-            boolean right = directions.get(log);
+            Position logPos = log.getPosition();
 
-            int newX = right ? pos.getX() + speed : pos.getX() - speed;
+            boolean carryingChicken = !chickenMoved && chickenPos.equals(logPos);
 
-            // wrap-around horizontal
-            if (newX >= width) newX -= width;
-            if (newX < 0) newX += width;
+            //log's speed
+            int movement = speeds.get(log);
+            int newLogX = logPos.getX() + movement;
+            //circularity
+            if (newLogX >= width) newLogX = 0;
+            // move log 1 unit
+            else if (newLogX < 0) newLogX = width - 1;
 
-            pos.setX(newX); // y permanece igual
+            logPos.setX(newLogX);
+
+            //chicken on log
+            if (carryingChicken) {
+                int newChickenX = chickenPos.getX() + movement;
+                chickenPos.setX(newChickenX);
+                chickenMoved = true;
+            }
         }
     }
 }
