@@ -1,6 +1,5 @@
 package CrossyRoad.Controller.Game;
 
-import CrossyRoad.Controler.Game.RiverController;
 import CrossyRoad.Controller.Controller;
 import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
@@ -62,7 +61,7 @@ public class SpaceController extends Controller<Space> {
 
         if (chickenDied()) {
             game.setLevel(1);
-            game.setState(new GameOverState(new GameOver(new Loader("GameOverScreen").getLines())));
+            game.setState(new GameOverState(new GameOver(new Loader("GameOverScreen").getLines(),getModel().getScore() )));
         }
         
     }

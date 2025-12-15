@@ -1,6 +1,7 @@
 package CrossyRoad.view.game;
 
 import CrossyRoad.gui.GUI;
+import CrossyRoad.model.Position;
 import CrossyRoad.model.game.elements.Element;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.view.Viewer;
@@ -23,6 +24,10 @@ public class GameViewer extends Viewer<Space> {
         drawElements(gui, getModel().getTruck(),new TruckViewer());
         drawElements(gui, getModel().getWalls(), new WallViewer());
         drawElement(gui, getModel().getChicken(), new ChickenViewer());
+
+        gui.drawText(new Position(0, 0),
+                "Score: " + getModel().getScore().getPoints(),
+                "#FFFF00");
     }
 
     protected <T extends Element> void drawElements(GUI gui, List<T> elements, ElementViewer<T> viewer) {
