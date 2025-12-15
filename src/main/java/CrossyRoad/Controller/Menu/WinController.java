@@ -29,7 +29,10 @@ public class WinController extends Controller<Win> {
                 break;
             case SELECT:
                 if (getModel().isSelectedExit()) game.setState(null);
-                if (getModel().isSelectedRestart()) game.setState(new GameState(new LoaderSpaceBuilder(1).createSpace()));
+                if (getModel().isSelectedRestart()){
+                    game.setLevel(1);
+                    game.setState(new GameState(new LoaderSpaceBuilder(1).createSpace()));
+                }
         }
     }
 }
