@@ -18,9 +18,6 @@ strategy and precision.
 - **Levels and Space creation** - The game space is automatically built based on the level the player is in. For now, we just have one level, but more will be added later.
 - **Tests** - For the element viewers and models, we have already implemented tests that cover all the coded lines successfully. We also have tests for the `LanternaGUI` class, which we plan to upgrade soon.
 - **Menu** - Although not full implemented yet we are already implementing the menu model and viewer.
-
-## Planned Features
-***
 - **Player Movement** - Move the chicken up, down, left, and right across obstacles.
 - **Obstacle Avoidance** - Avoid cars, trucks, bushes, and other hazards that can end the game.
 - **Water Hazards** - Jump across lakes using safe spots or logs without falling in.
@@ -29,6 +26,10 @@ strategy and precision.
 - **Collisions Detection** - Detect collisions with cars, trucks and water hazards.
 - **Scoring System** - Track progress based on distance traveled or obstacles avoided.
 - **Interactive Menu** - A start menu with options to play, view instructions, or exit the game.
+
+## Planned Features
+***
+All the planned features were successfully implemented.
 
 ## Design
 
@@ -41,18 +42,20 @@ strategy and precision.
 
 ### General Structure
 #### Problem in Context:
-The main concern was how to structure a game with multiple states
-(menus (not implemented totally yet), gameplay, and pause (not implemented yet)).
+The main concern was how to structure a game with multiple states (menus, gameplay, and pause).
 The code needed to be organized, maintainable, and allow easy expansion for future features.
 
 #### The Pattern:
 We applied the Model-View-Controller (MVC) architectural pattern to separate game data,
 logic, and presentation. Additionally, the State Pattern was used to manage different game states,
 allowing the chicken and menus to behave differently depending on the current state.
+Also, Facade Pattern was used since it provides a simple interface to a complex subsystem.
+Finally, we used the Command Pattern to decouple user input handling from game logic, 
+making the system cleaner, more extensible, and easier to maintain.
 
 #### Implementation:
 Model classes store game data, like chicken position.
-Controller classes (not implemented yet) handle game logic, movement, collision checks, and level progression.
+Controller classes handle game logic, movement, collision checks, and level progression.
 View classes render the game visuals and menus on the screen.
 
 <p align="center" justify="center">
@@ -64,7 +67,7 @@ View classes render the game visuals and menus on the screen.
 
 #### Consequences:
 Code is well-organized and follows the basics of the SOLID principles as none class ir responsible for more than one task like set position and drawing to the screen at the same time.
-With this organization it's easy to spot errors and to find code for a spefic task (all the drawing code will be on the viewer directory and so on),
+With this organization it's easy to spot errors and to find code for a specif task (all the drawing code will be on the viewer directory and so on),
 New features can be added with minimal impact on existing code.
 *** 
 
@@ -120,10 +123,6 @@ The use of the Facade Pattern in the current design allows the following benefit
 
 
 ## Known-code smells
-- At the moment as we don't fully implement a menu we don't have also a menu state that should be the begging of our game. To solve that problem we made the initial state be the `GameState` which is already fully functional.
-- Because of the missing controllers we don't have a way to change state which means that the game will not leave the `GameState` and that the while loop present in `Game.java` will never be broken so the game will run forever if we not end it in the terminal.
-- With the missing element controllers our elements don't have movement so for now the game is static which is not good.
-- Our test don't fully test all that we have already in the best way.
 
 ## Testing
 ***
@@ -150,7 +149,7 @@ The use of the Facade Pattern in the current design allows the following benefit
 ## Self-evaluation
 ***
 
-The work was divided in a mutual way and we all contributed with our best. It helped us to enrich our
+The work was divided in a mutual way, and we all contributed with our best. It helped us to enrich our
 java and principle/pattern knowledge, as well as our team work.
 
 - Dário Amaral: 33.3%
