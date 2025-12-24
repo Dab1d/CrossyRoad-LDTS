@@ -3,6 +3,7 @@ package CrossyRoad;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.gui.LanternaGUI;
 import CrossyRoad.model.loader.Loader;
+import CrossyRoad.model.loader.ScreenType;
 import CrossyRoad.state.MenuState;
 import CrossyRoad.state.State;
 import CrossyRoad.model.menu.Menu;
@@ -23,7 +24,12 @@ public class Game {
 
     public Game() throws IOException, URISyntaxException, FontFormatException {
         this.gui = new LanternaGUI(20, 32);
-        this.state = new MenuState(new Menu(new Loader("loadscreen").getLines()));
+        this.state = new MenuState(
+                new Menu(
+                        new Loader(ScreenType.MENU.getFile()).getLines()
+                )
+        );
+
         this.level = 1;
         this.score = 0;
         this.hud = new HUDView();

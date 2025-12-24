@@ -5,6 +5,7 @@ import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.model.loader.Loader;
+import CrossyRoad.model.loader.ScreenType;
 import CrossyRoad.model.menu.GameOver;
 import CrossyRoad.model.menu.Pause;
 import CrossyRoad.state.GameOverState;
@@ -59,7 +60,9 @@ public class SpaceController extends Controller<Space> {
 
         if (chickenDied()) {
             game.setLevel(1);
-            game.setState(new GameOverState(new GameOver(new Loader("GameOverScreen").getLines())));
+            Loader loader = new Loader(ScreenType.LOSE.getFile());
+            GameOver gameOver = new GameOver(loader.getLines());
+            game.setState(new GameOverState(gameOver));
         }
     }
 }

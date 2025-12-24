@@ -1,22 +1,25 @@
 package model.menu;
 
-import CrossyRoad.model.menu.Menu;
+import CrossyRoad.model.loader.Loader;
+import CrossyRoad.model.loader.ScreenType;
 import CrossyRoad.model.menu.Win;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WinTest {
     @Test
-    public void testWin() {
-        Win win = new Win();
+    public void testWin() throws IOException {
+        Loader loader = new Loader(ScreenType.WIN.getFile());
+        Win win = new Win(loader.getLines());
 
         win.previousEntry();
-        assertEquals(true, win.isSelectedExit());
+        assertTrue(win.isSelectedExit(), "Deveria estar selecionado o Exit ao retroceder do início");
 
         win.nextEntry();
-        assertEquals(true, win.isSelectedRestart());
-
+        assertTrue(win.isSelectedRestart(), "Deveria voltar ao Restart ao avançar do fim");
 
         assertEquals("Restart", win.getEntry(0));
         assertEquals("Exit", win.getEntry(1));
