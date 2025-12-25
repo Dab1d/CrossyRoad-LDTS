@@ -1,21 +1,28 @@
 package state;
 
 import CrossyRoad.Controller.Menu.WinController;
+import CrossyRoad.model.loader.Loader;
+import CrossyRoad.model.loader.ScreenType;
 import CrossyRoad.model.menu.Pause;
 import CrossyRoad.model.menu.Win;
 import CrossyRoad.state.WinState;
 import CrossyRoad.view.menu.WinViewer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WinStateTest {
     @Test
-    public void testWinState() {
-        WinState winState = new WinState(new Win());
+    public void testWinState() throws IOException {
+        Loader loader = new Loader(ScreenType.WIN.getFile());
+        Win win = new Win(loader.getLines());
+        WinState winState = new WinState(win);
 
-        assertTrue(winState.getModel() instanceof Win);
-        assertTrue(winState.getViewer() instanceof WinViewer);
-        assertTrue(winState.getController() instanceof WinController);
+        assertEquals(win, winState.getModel(), "O modelo no State deve ser o mesmo que foi passado");
+
+        assertInstanceOf(WinViewer.class, winState.getViewer());
+        assertInstanceOf(WinController.class, winState.getController());
     }
 }

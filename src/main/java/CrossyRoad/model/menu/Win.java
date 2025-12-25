@@ -6,15 +6,13 @@ import java.util.List;
 public class Win {
     private final List<String> lines;
     private int currentEntry = 0;
-    private List<String> background;
+    private final List<String> background;
 
     public Win(List<String> background) {
         this.background = background;
         this.lines = Arrays.asList("Restart", "Exit");
     }
-    public Win() {
-        this.lines = Arrays.asList("Restart", "Exit");
-    }
+
 
     public void nextEntry() {
         currentEntry++;
