@@ -32,7 +32,9 @@ public class GameOver {
         return lines.get(i);
     }
 
-    public int getCurrentEntry() { return currentEntry; }
+    public int getCurrentEntry() {
+        return currentEntry;
+    }
 
     public boolean isSelected(int i) {
         return currentEntry == i;
