@@ -15,9 +15,8 @@ public class Loader {
     public Loader(String filename) throws IOException {
 
         InputStream is = getClass().getResourceAsStream("/loadscreen/" + filename);
-        if (is == null) {
-            throw new IOException("Ficheiro não encontrado: /loadscreen/" + filename);
-        }
+        if (is == null) throw new IOException("Ficheiro não encontrado: /loadscreen/" + filename);
+
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             lines = readLines(br);

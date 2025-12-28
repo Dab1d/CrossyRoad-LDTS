@@ -4,7 +4,7 @@ public class ColorAdapter {
 
     public static String getHexColor(char code) {
         return switch (code) {
-            case 'a' -> "#000000";      // Preto (mas devia ser ciano, mas não deu devido ao fundo da fonte ser preto)
+            case 'a' -> "#000000";      // Preto (devia ser ciano, mas não deu devido ao fundo da fonte ser preto)
             case 'b' -> "#000000";      // Preto
             case 'd' -> "#FF0000";      // Vermelho
             case 'f' -> "#FFFFFF";      // Branco
