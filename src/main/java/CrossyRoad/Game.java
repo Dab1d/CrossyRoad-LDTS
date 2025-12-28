@@ -5,11 +5,9 @@ import CrossyRoad.gui.LanternaGUI;
 import CrossyRoad.model.game.space.LoaderSpaceBuilder;
 import CrossyRoad.model.loader.Loader;
 import CrossyRoad.model.loader.ScreenType;
-import CrossyRoad.model.menu.Help;
-import CrossyRoad.model.menu.Pause;
-import CrossyRoad.model.menu.Win;
-import CrossyRoad.state.*;
+import CrossyRoad.model.menu.*;
 import CrossyRoad.model.menu.Menu;
+import CrossyRoad.state.*;
 import CrossyRoad.view.menu.HUDView;
 
 
@@ -55,10 +53,6 @@ public class Game {
         return this.state;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -77,6 +71,10 @@ public class Game {
 
     public void resetScore() {
         this.score = 0;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public void initGame() throws IOException {
@@ -130,10 +128,14 @@ public class Game {
         this.setState(new WinState(winMenu));
     }
 
-    //will be used by the controller to chance between menu and game state
-    public void setState(State state) {
-        this.state = state;
+    public void loseGame() throws IOException {
+        this.level = 1;
+        this.score = 0;
+        Loader loader = new Loader(ScreenType.LOSE.getFile());
+        GameOver gameOver = new GameOver(loader.getLines());
+        this.setState(new GameOverState(gameOver));
     }
+
 
     public void start() throws IOException {
         int FPS = 60;

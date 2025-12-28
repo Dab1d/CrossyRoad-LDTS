@@ -2,6 +2,9 @@ package CrossyRoad.Controller.Game;
 
 import CrossyRoad.Controller.Controller;
 import CrossyRoad.Game;
+import CrossyRoad.command.Command;
+import CrossyRoad.command.LoseCommand;
+import CrossyRoad.command.PauseCommand;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.model.loader.Loader;
@@ -12,7 +15,9 @@ import CrossyRoad.state.GameOverState;
 import CrossyRoad.state.PauseState;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpaceController extends Controller<Space> {
 
@@ -21,12 +26,10 @@ public class SpaceController extends Controller<Space> {
     private final EndLineController endLineController;
 
     private final List<Controller<Space>> autoControllers;
-
     public SpaceController(Space space) {
         super(space);
 
         ControllerFactory factory = new ControllerFactory(space);
-
         this.chickenController = factory.createChickenController();
         this.endLineController = factory.createEndLineController();
         this.autoControllers = factory.createAutoControllers();
@@ -38,7 +41,6 @@ public class SpaceController extends Controller<Space> {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
-
         switch (action) {
             case UP:
             case DOWN:
@@ -48,8 +50,7 @@ public class SpaceController extends Controller<Space> {
                 endLineController.step(game, action, time);
                 break;
             case PAUSE:
-                game.setPrevious(game.getState());
-                game.setState(new PauseState(new Pause()));
+                new PauseCommand(game).execute();
             default:
                 break;
         }
@@ -59,10 +60,7 @@ public class SpaceController extends Controller<Space> {
         }
 
         if (chickenDied()) {
-            game.setLevel(1);
-            Loader loader = new Loader(ScreenType.LOSE.getFile());
-            GameOver gameOver = new GameOver(loader.getLines());
-            game.setState(new GameOverState(gameOver));
+            new LoseCommand(game).execute();
         }
     }
 }
