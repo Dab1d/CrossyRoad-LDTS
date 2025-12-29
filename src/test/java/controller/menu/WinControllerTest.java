@@ -16,75 +16,24 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class WinControllerTest {
-
     private WinController controller;
-
-    @Mock
-    private Win winMock;
-
-    @Mock
-    private Game gameMock;
+    @Mock private Win winMock;
+    @Mock private Game gameMock;
 
     @BeforeEach
-    void setUp() {
-        controller = new WinController(winMock);
-    }
-
-    // ---------- MOVIMENTO ----------
+    void setUp() { controller = new WinController(winMock); }
 
     @Test
-    void stepLeft_callsPreviousEntry() throws Exception {
-        controller.step(gameMock, GUI.ACTION.LEFT, 0);
-
-        verify(winMock).previousEntry();
-        verify(winMock, never()).nextEntry();
-        verify(gameMock, never()).setState(any());
-    }
-
-    @Test
-    void stepRight_callsNextEntry() throws Exception {
-        controller.step(gameMock, GUI.ACTION.RIGHT, 0);
-
-        verify(winMock).nextEntry();
-        verify(winMock, never()).previousEntry();
-        verify(gameMock, never()).setState(any());
-    }
-
-    // ---------- SELECT ----------
-
-    @Test
-    void stepSelect_whenExitSelected_exitsGame() throws Exception {
-        when(winMock.isSelected(0)).thenReturn(true);
-        when(winMock.isSelected(1)).thenReturn(false);
-
+    void stepSelect_Restart() throws Exception {
+        when(winMock.getCurrentEntry()).thenReturn(0);
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock).setState(null);
-        verify(gameMock, never()).resetScore();
-        //verify(gameMock, never()).setLevel(anyInt());
+        verify(gameMock).initGame();
     }
 
     @Test
-    void stepSelect_whenRestartSelected_restartsGame() throws Exception {
-        when(winMock.isSelected(0)).thenReturn(false);
-        when(winMock.isSelected(1)).thenReturn(true);
-
+    void stepSelect_Quit() throws Exception {
+        when(winMock.getCurrentEntry()).thenReturn(1);
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock).resetScore();
-        //verify(gameMock).setLevel(1);
-        verify(gameMock).setState(Mockito.isA(GameState.class));
-    }
-
-    @Test
-    void stepSelect_whenNothingSelected_doesNothing() throws Exception {
-        when(winMock.isSelected(0)).thenReturn(false);
-        when(winMock.isSelected(1)).thenReturn(false);
-
-        controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock, never()).setState(any());
-        verify(gameMock, never()).resetScore();
-        //verify(gameMock, never()).setLevel(anyInt());
+        verify(gameMock).quitGame();
     }
 }

@@ -51,40 +51,41 @@ public class GameOverControllerTest {
     }
 
     // ---------- SELECT ----------
-
     @Test
-    void stepSelect_whenExitSelected_exitsGame() throws Exception {
-        when(gameOverMock.isSelected(0)).thenReturn(true);
-        when(gameOverMock.isSelected(1)).thenReturn(false);
+    void stepSelect_whenRestartSelected_callsStartCommand() throws Exception {
+        // No Controller, 0 é o StartCommand (Restart)
+        when(gameOverMock.getCurrentEntry()).thenReturn(0);
 
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
 
-        verify(gameMock).setState(null);
-        verify(gameMock, never()).resetScore();
+        // O StartCommand deve chamar o método de inicialização do Game
+        verify(gameMock).initGame();
+        // Garante que NÃO fechou o jogo
+        verify(gameMock, never()).quitGame();
     }
 
     @Test
-    void stepSelect_whenRestartSelected_restartsGame() throws Exception {
-        when(gameOverMock.isSelected(0)).thenReturn(false);
-        when(gameOverMock.isSelected(1)).thenReturn(true);
-        when(gameMock.getLevel()).thenReturn(1);
+    void stepSelect_whenExitSelected_callsQuitCommand() throws Exception {
+        // No Controller, 1 é o QuitCommand (Exit)
+        when(gameOverMock.getCurrentEntry()).thenReturn(1);
 
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
 
-        verify(gameMock).resetScore();
-        verify(gameMock).setState(Mockito.isA(GameState.class));
-        verify(gameMock).getLevel();
+        // De acordo com o erro que recebeste, o QuitCommand chama quitGame()
+        verify(gameMock).quitGame();
+        // Garante que NÃO reiniciou o jogo
+        verify(gameMock, never()).initGame();
     }
 
     @Test
-    void stepSelect_whenNothingSelected_doesNothing() throws Exception {
-        when(gameOverMock.isSelected(0)).thenReturn(false);
-        when(gameOverMock.isSelected(1)).thenReturn(false);
+    void stepSelect_whenInvalidOption_doesNothing() throws Exception {
+        // Se por algum motivo o índice for 99 (não existe no mapa)
+        when(gameOverMock.getCurrentEntry()).thenReturn(99);
 
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
 
+        verify(gameMock, never()).initGame();
         verify(gameMock, never()).setState(any());
-        verify(gameMock, never()).resetScore();
     }
 }
 
