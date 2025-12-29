@@ -14,93 +14,42 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 public class PauseControllerTest {
-
     private PauseController controller;
+<<<<<<< HEAD
 
     @Mock
     private Pause pauseMock;
 
     @Mock
     private StateManager gameMock;
+=======
+    @Mock private Pause pauseMock;
+    @Mock private Game gameMock;
+>>>>>>> 7801c4d4e6a6a8f61d8ca0cd1716e2159a9b9160
 
     @BeforeEach
-    void setUp() {
-        controller = new PauseController(pauseMock);
-    }
-
-    // ---------- MOVIMENTO ----------
+    void setUp() { controller = new PauseController(pauseMock); }
 
     @Test
-    void stepUp_callsPreviousEntry() throws Exception {
-        controller.step(gameMock, GUI.ACTION.UP, 0);
-
-        verify(pauseMock).previousEntry();
-        verify(pauseMock, never()).nextEntry();
-        verify(gameMock, never()).setState(any());
-    }
-
-    @Test
-    void stepDown_callsNextEntry() throws Exception {
-        controller.step(gameMock, GUI.ACTION.DOWN, 0);
-
-        verify(pauseMock).nextEntry();
-        verify(pauseMock, never()).previousEntry();
-        verify(gameMock, never()).setState(any());
-    }
-
-    // ---------- SELECT ----------
-
-    @Test
-    void stepSelect_whenQuitSelected_exitsGame() throws Exception {
-        when(pauseMock.isSelectedQuit()).thenReturn(true);
-        when(pauseMock.isSelectedMenu()).thenReturn(false);
-        when(pauseMock.isSelectedResume()).thenReturn(false);
-
+    void stepSelect_Resume() throws Exception {
+        when(pauseMock.getCurrentEntry()).thenReturn(0);
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock).setState(null);
-        verify(gameMock, never()).setLevel(anyInt());
+        verify(gameMock).resumeGame();
     }
 
     @Test
-    void stepSelect_whenMenuSelected_goesToMenu() throws Exception {
-        when(pauseMock.isSelectedQuit()).thenReturn(false);
-        when(pauseMock.isSelectedMenu()).thenReturn(true);
-        when(pauseMock.isSelectedResume()).thenReturn(false);
-
+    void stepSelect_ReturnToMenu() throws Exception {
+        when(pauseMock.getCurrentEntry()).thenReturn(1);
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock).setLevel(1);
-        verify(gameMock).setState(Mockito.isA(MenuState.class));
+        verify(gameMock).returnToMenu();
     }
 
     @Test
-    void stepSelect_whenResumeSelected_returnsToPreviousState() throws Exception {
-        when(pauseMock.isSelectedQuit()).thenReturn(false);
-        when(pauseMock.isSelectedMenu()).thenReturn(false);
-        when(pauseMock.isSelectedResume()).thenReturn(true);
-
-        State previousStateMock = mock(State.class);
-        when(gameMock.getPrevious()).thenReturn(previousStateMock);
-
-
+    void stepSelect_Quit() throws Exception {
+        when(pauseMock.getCurrentEntry()).thenReturn(2);
         controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock).setState(previousStateMock);
-    }
-
-    @Test
-    void stepSelect_whenNothingSelected_doesNothing() throws Exception {
-        when(pauseMock.isSelectedQuit()).thenReturn(false);
-        when(pauseMock.isSelectedMenu()).thenReturn(false);
-        when(pauseMock.isSelectedResume()).thenReturn(false);
-
-        controller.step(gameMock, GUI.ACTION.SELECT, 0);
-
-        verify(gameMock, never()).setState(any());
-        verify(gameMock, never()).setLevel(anyInt());
+        verify(gameMock).quitGame();
     }
 }

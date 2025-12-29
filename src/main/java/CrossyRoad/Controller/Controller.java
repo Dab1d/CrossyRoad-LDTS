@@ -16,5 +16,5 @@ public abstract class Controller<T> {
         return model;
     }
 
-    public abstract void step(StateManager game, GUI.ACTION action, long startTime) throws IOException;
+    public abstract void step(StateManager stateManager, GUI.ACTION action, long startTime) throws IOException;
 }

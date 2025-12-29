@@ -17,11 +17,11 @@ public class EndLineController extends Controller<Space> {
     }
 
     @Override
-    public void step(StateManager game, GUI.ACTION action, long time) throws IOException {
+    public void step(StateManager stateManager, GUI.ACTION action, long time) throws IOException {
         Position chickenPos = getModel().getChicken().getPosition();
         for (EndLine endline : getModel().getEndlines()) {
             if (chickenPos.equals(endline.getPosition())) {
-                game.advanceLevel();
+                stateManager.advanceLevel();
                 return;
             }
         }

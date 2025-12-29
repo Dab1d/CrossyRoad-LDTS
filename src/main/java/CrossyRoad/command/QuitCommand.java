@@ -3,12 +3,12 @@ package CrossyRoad.command;
 import CrossyRoad.state.StateManager;
 
 public class QuitCommand implements Command {
-    private final StateManager game;
-    public QuitCommand(StateManager game) {
-        this.game = game;
+    private final StateManager stateManager;
+    public QuitCommand(StateManager stateManager) {
+            this.stateManager = stateManager;
     }
 
     public void execute() {
-        game.quitGame();
+        stateManager.quitGame();
     }
 }

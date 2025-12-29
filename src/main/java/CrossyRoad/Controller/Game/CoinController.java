@@ -16,7 +16,7 @@ public class CoinController extends Controller<Space> {
     }
 
     @Override
-    public void step(StateManager game, GUI.ACTION action, long time) {
+    public void step(StateManager stateManager, GUI.ACTION action, long time) {
         Position chickenPos = getModel().getChicken().getPosition();
 
         Iterator<Coin> it = getModel().getCoins().iterator();
@@ -24,7 +24,7 @@ public class CoinController extends Controller<Space> {
         while (it.hasNext()) {
             Coin coin = it.next();
             if (coin.getPosition().equals(chickenPos)) {
-                game.addScore();
+                stateManager.addScore();
                 it.remove();
             }
         }

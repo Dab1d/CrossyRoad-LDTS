@@ -34,7 +34,7 @@ public class ChickenController extends Controller<Space> {
     }
 
     @Override
-    public void step(StateManager game, GUI.ACTION action, long time) {
+    public void step(StateManager stateManager, GUI.ACTION action, long time) {
         if (action == GUI.ACTION.UP) moveChickenUp();
         if (action == GUI.ACTION.RIGHT) moveChickenRight();
         if (action == GUI.ACTION.DOWN) moveChickenDown();

@@ -16,8 +16,8 @@ public class LogController extends Controller<Space> {
     }
 
     @Override
-    public void step(StateManager game, GUI.ACTION action, long time) {
-        if (time - lastMoveTime >= 200) { // move a cada 200ms
+    public void step(StateManager stateManager, GUI.ACTION action, long time) {
+        if (time - lastMoveTime >= 200) {
             moveLog();
             lastMoveTime = time;
         }

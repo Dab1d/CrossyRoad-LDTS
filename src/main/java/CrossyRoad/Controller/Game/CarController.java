@@ -17,7 +17,7 @@ public class CarController extends Controller<Space> {
     }
 
     @Override
-    public void step(StateManager game, GUI.ACTION action, long time) {
+    public void step(StateManager stateManager, GUI.ACTION action, long time) {
         if (time - lastMoveTime >= 100) {
             for (Car car : getModel().getCars()){
                 car.updatePosition(getModel().getWidth());

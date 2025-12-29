@@ -3,13 +3,13 @@ package CrossyRoad.command;
 import CrossyRoad.state.StateManager;
 
 public class ResumeCommand implements Command {
-    private final StateManager game;
+    private final StateManager stateManager;
 
-    public ResumeCommand(StateManager game) {
-        this.game = game;
+    public ResumeCommand(StateManager stateManager) {
+            this.stateManager = stateManager;
     }
 
     public void execute() {
-        game.resumeGame();
+        stateManager.resumeGame();
     }
 }

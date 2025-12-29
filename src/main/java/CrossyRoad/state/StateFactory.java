@@ -1,38 +1,35 @@
 package CrossyRoad.state;
 
 import CrossyRoad.model.game.space.LoaderSpaceBuilder;
-import CrossyRoad.model.loader.Loader;
-import CrossyRoad.model.loader.ScreenType;
-import CrossyRoad.model.menu.*;
+import CrossyRoad.model.game.space.Space;
 
 import java.io.IOException;
 
-public class StateFactory  {
+public class StateFactory {
+
 
     public State createMenuState() throws IOException {
-        return new MenuState(new Menu(new Loader(ScreenType.MENU.getFile()).getLines()));
+        return new MenuState();
     }
 
     public State createGameState(int level) throws IOException {
-        return new GameState(new LoaderSpaceBuilder(level).createSpace());
+        Space space = new LoaderSpaceBuilder(level).createSpace();
+        return new GameState(space);
     }
 
-
-    public State createPauseState() {
-        return new PauseState(new Pause());
+    public State createPauseState() throws IOException {
+        return new PauseState();
     }
-
-
-    public State createHelpState(){
-        return new HelpState(new Help());}
 
     public State createWinState() throws IOException {
-        Loader loader = new Loader(ScreenType.WIN.getFile());
-        return new WinState(new Win(loader.getLines()));
+        return new WinState();
     }
 
     public State createGameOverState() throws IOException {
-        Loader loader = new Loader(ScreenType.LOSE.getFile());
-        return new GameOverState(new GameOver(loader.getLines()));
+        return new GameOverState();
+    }
+
+    public State createHelpState() throws IOException {
+        return new HelpState();
     }
 }

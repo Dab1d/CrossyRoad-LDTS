@@ -5,13 +5,13 @@ import CrossyRoad.state.StateManager;
 import java.io.IOException;
 
 public class StartCommand implements Command {
-    private final StateManager game;
+    private final StateManager stateManager;
 
-    public StartCommand(StateManager game) {
-        this.game = game;
+    public StartCommand(StateManager stateManager) {
+        this.stateManager = stateManager;
     }
 
     public void execute() throws IOException {
-        game.initGame();
+        stateManager.initGame();
     }
 }

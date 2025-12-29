@@ -1,11 +1,12 @@
 package CrossyRoad.Controller.Game;
 
+
 import CrossyRoad.Controller.Controller;
-import CrossyRoad.state.StateManager;
 import CrossyRoad.command.LoseCommand;
 import CrossyRoad.command.PauseCommand;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
+import CrossyRoad.state.StateManager;
 
 import java.io.IOException;
 import java.util.List;

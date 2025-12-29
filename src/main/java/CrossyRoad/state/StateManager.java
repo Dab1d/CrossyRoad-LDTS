@@ -15,48 +15,48 @@ public class StateManager {
 
     public StateManager(StateFactory stateFactory) throws IOException, URISyntaxException, FontFormatException {
         this.stateFactory = stateFactory;
-        this.level = 1;
-        this.score = 0;
+        resetLevel();
+        resetScore();
         this.state = stateFactory.createMenuState();
     }
 
     public void initGame() throws IOException {
-        this.score = 0;
-        this.level = 1;
-        this.setState(stateFactory.createGameState(this.level));
+        resetScore();
+        resetLevel();
+        this.setState(stateFactory.createGameState(getLevel()));
     }
 
     public void quitGame() {
         this.setState(null);
     }
 
-    public void pauseGame() {
-        this.previousState = this.state;
-        this.setState(stateFactory.createPauseState());
+    public void pauseGame() throws IOException {
+        setPrevious(state);
+        setState(stateFactory.createPauseState());
     }
 
     public void resumeGame() {
-        this.setState(this.getPrevious());
+        setState(this.getPrevious());
     }
 
     public void returnToMenu() throws IOException {
-        this.level = 1;
-        this.score = 0;
-        this.setState(stateFactory.createMenuState());
+        resetLevel();
+        resetScore();
+        setState(stateFactory.createMenuState());
     }
 
     public void goToHelp() throws IOException {
-        this.setState(stateFactory.createHelpState());
+        setState(stateFactory.createHelpState());
     }
 
     public void winGame() throws IOException {
-        this.setState(stateFactory.createWinState());
+        setState(stateFactory.createWinState());
     }
 
     public void advanceLevel() throws IOException {
         if(this.level < FINAL_LEVEL) {
             this.level++;
-            this.setState(stateFactory.createGameState(this.level));
+            this.setState(stateFactory.createGameState(getLevel()));
         } else {
             this.finishGame();
         }
@@ -67,9 +67,9 @@ public class StateManager {
     }
 
     public void loseGame() throws IOException {
-        this.level = 1;
-        this.score = 0;
-        this.setState(stateFactory.createGameOverState());
+        resetLevel();
+        resetScore();
+        setState(stateFactory.createGameOverState());
     }
 
 
@@ -81,5 +81,6 @@ public class StateManager {
     public void setLevel(int level) { this.level = level; }
     public int getScore() { return score; }
     public void addScore() { score++; }
-    public void resetScore() { this.score = 0; }
+    public void resetScore() { this.score = 0;}
+    public void resetLevel() { this.level =1;}
 }
