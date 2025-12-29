@@ -1,6 +1,5 @@
 package CrossyRoad;
 
-import CrossyRoad.Controller.GameController;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.state.StateFactory;
 import CrossyRoad.gui.LanternaGUI;
