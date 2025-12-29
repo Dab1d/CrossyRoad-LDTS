@@ -1,4 +1,4 @@
-package CrossyRoad.Controller.Menu;
+package CrossyRoad.controller.Menu;
 
 
 import CrossyRoad.command.QuitCommand;

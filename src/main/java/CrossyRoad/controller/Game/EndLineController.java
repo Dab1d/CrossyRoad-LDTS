@@ -1,6 +1,6 @@
-package CrossyRoad.Controller.Game;
+package CrossyRoad.controller.Game;
 
-import CrossyRoad.Controller.Controller;
+import CrossyRoad.controller.Controller;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
@@ -10,7 +10,6 @@ import CrossyRoad.model.game.elements.EndLine;
 import java.io.IOException;
 
 public class EndLineController extends Controller<Space> {
-    private static final int FINAL_LEVEL = 5;
 
     public EndLineController(Space space) {
         super(space);
