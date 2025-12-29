@@ -18,7 +18,7 @@ public class WinStateTest {
     public void testWinState() throws IOException {
         Loader loader = new Loader(ScreenType.WIN.getFile());
         Win win = new Win(loader.getLines());
-        WinState winState = new WinState(win);
+        WinState winState = new WinState();
 
         assertEquals(win, winState.getModel(), "O modelo no State deve ser o mesmo que foi passado");
 

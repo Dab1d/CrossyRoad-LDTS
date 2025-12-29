@@ -2,7 +2,7 @@ package controller.menu;
 
 
 import CrossyRoad.Controller.Menu.HelpController;
-import CrossyRoad.Game;
+import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.Help;
 import CrossyRoad.state.GameState;
@@ -18,8 +18,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class HelpControllerTest {
     private HelpController controller;
+<<<<<<< HEAD
+
+    @Mock
+    private Help helpMock;
+
+    @Mock
+    private StateManager gameMock;
+=======
     @Mock private Help helpMock;
     @Mock private Game gameMock;
+>>>>>>> 7801c4d4e6a6a8f61d8ca0cd1716e2159a9b9160
 
     @BeforeEach
     void setUp() { controller = new HelpController(helpMock); }

@@ -1,17 +1,17 @@
 package CrossyRoad.command;
 
-import CrossyRoad.Game;
+import CrossyRoad.state.StateManager;
 
 import java.io.IOException;
 
 public class PauseCommand implements Command {
-    private final Game game;
+    private final StateManager stateManager;
 
-    public PauseCommand(Game game) {
-        this.game = game;
+    public PauseCommand(StateManager stateManager) {
+            this.stateManager = stateManager;
     }
 
     public void execute() throws IOException {
-        game.pauseGame();
+        stateManager.pauseGame();
     }
 }

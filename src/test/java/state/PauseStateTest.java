@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PauseStateTest {
     @Test
     public void testPauseState() {
-        PauseState pauseState = new PauseState(new Pause());
+        PauseState pauseState = new PauseState();
 
         assertTrue(pauseState.getModel() instanceof Pause);
 

@@ -1,15 +1,15 @@
 package CrossyRoad.command;
 
-import CrossyRoad.Game;
+import CrossyRoad.state.StateManager;
 
 public class ResumeCommand implements Command {
-    private final Game game;
+    private final StateManager stateManager;
 
-    public ResumeCommand(Game game) {
-        this.game = game;
+    public ResumeCommand(StateManager stateManager) {
+            this.stateManager = stateManager;
     }
 
     public void execute() {
-        game.resumeGame();
+        stateManager.resumeGame();
     }
 }

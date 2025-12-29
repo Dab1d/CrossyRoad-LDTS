@@ -1,15 +1,11 @@
 package CrossyRoad.Controller.Menu;
 
-import CrossyRoad.Controller.Controller;
-import CrossyRoad.Game;
-import CrossyRoad.command.Command;
+
 import CrossyRoad.command.QuitCommand;
 import CrossyRoad.command.StartCommand;
-import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.Win;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import CrossyRoad.state.StateManager;
+
 
 public class WinController extends MenusController<Win> {
     public WinController(Win win){
@@ -17,8 +13,8 @@ public class WinController extends MenusController<Win> {
     }
 
     @Override
-    protected void setupCommands(Game game) {
-        commands.put(0, new StartCommand(game));
-        commands.put(1, new QuitCommand(game));
+    protected void setupCommands(StateManager stateManager) {
+        commands.put(0, new StartCommand(stateManager));
+        commands.put(1, new QuitCommand(stateManager));
     }
 }

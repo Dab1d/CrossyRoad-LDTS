@@ -1,7 +1,7 @@
 package CrossyRoad.Controller.Game;
 
 import CrossyRoad.Controller.Controller;
-import CrossyRoad.Game;
+import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
 import CrossyRoad.model.game.space.Space;
@@ -34,7 +34,7 @@ public class ChickenController extends Controller<Space> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) {
+    public void step(StateManager stateManager, GUI.ACTION action, long time) {
         if (action == GUI.ACTION.UP) moveChickenUp();
         if (action == GUI.ACTION.RIGHT) moveChickenRight();
         if (action == GUI.ACTION.DOWN) moveChickenDown();

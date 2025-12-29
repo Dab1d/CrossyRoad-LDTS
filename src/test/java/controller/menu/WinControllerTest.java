@@ -1,7 +1,7 @@
 package controller.menu;
 
 import CrossyRoad.Controller.Menu.WinController;
-import CrossyRoad.Game;
+import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.Win;
 import CrossyRoad.state.GameState;
@@ -17,8 +17,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class WinControllerTest {
     private WinController controller;
+<<<<<<< HEAD
+
+    @Mock
+    private Win winMock;
+
+    @Mock
+    private StateManager gameMock;
+=======
     @Mock private Win winMock;
     @Mock private Game gameMock;
+>>>>>>> 7801c4d4e6a6a8f61d8ca0cd1716e2159a9b9160
 
     @BeforeEach
     void setUp() { controller = new WinController(winMock); }

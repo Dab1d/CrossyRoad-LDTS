@@ -1,12 +1,12 @@
 package CrossyRoad.Controller.Game;
 
+
 import CrossyRoad.Controller.Controller;
-import CrossyRoad.Game;
 import CrossyRoad.command.LoseCommand;
 import CrossyRoad.command.PauseCommand;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.space.Space;
-
+import CrossyRoad.state.StateManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +32,7 @@ public class SpaceController extends Controller<Space> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+    public void step(StateManager game, GUI.ACTION action, long time) throws IOException {
         switch (action) {
             case UP:
             case DOWN:

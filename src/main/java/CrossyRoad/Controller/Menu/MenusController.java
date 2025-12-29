@@ -1,10 +1,10 @@
 package CrossyRoad.Controller.Menu;
 
 import CrossyRoad.Controller.Controller;
-import CrossyRoad.Game;
 import CrossyRoad.command.Command;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.NavigableMenu;
+import CrossyRoad.state.StateManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,11 +17,11 @@ public abstract class MenusController<T extends NavigableMenu> extends Controlle
         super(model);
     }
 
-    protected abstract void setupCommands(Game game);
+    protected abstract void setupCommands(StateManager stateManager);
 
     @Override
-    public void step(Game game, GUI.ACTION action, long startTime) throws IOException {
-        if(commands.isEmpty()) setupCommands(game);
+    public void step(StateManager stateManager, GUI.ACTION action, long startTime) throws IOException {
+        if(commands.isEmpty()) setupCommands(stateManager);
 
         switch (action) {
             case LEFT:
