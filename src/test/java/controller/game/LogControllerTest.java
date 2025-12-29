@@ -1,7 +1,7 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.LogController;
-import CrossyRoad.Controller.Game.MoveStrategies.MoveRightStrategy;
+import CrossyRoad.controller.Game.LogController;
+import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.model.game.elements.Chicken;
 import CrossyRoad.model.game.elements.Log;

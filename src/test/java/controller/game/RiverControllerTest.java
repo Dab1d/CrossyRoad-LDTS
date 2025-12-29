@@ -1,7 +1,7 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.MoveStrategies.MoveRightStrategy;
-import CrossyRoad.Controller.Game.RiverController;
+import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
+import CrossyRoad.controller.Game.RiverController;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.model.game.elements.River;
 import CrossyRoad.model.game.space.Space;
