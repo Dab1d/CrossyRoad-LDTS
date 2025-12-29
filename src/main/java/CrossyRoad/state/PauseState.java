@@ -10,8 +10,8 @@ import CrossyRoad.view.menu.MenuView;
 import CrossyRoad.view.menu.PauseViewer;
 
 public class PauseState extends State<Pause> {
-    public PauseState(Pause model) {
-        super(model);
+    public PauseState() {
+        super(new Pause());
     }
 
     @Override

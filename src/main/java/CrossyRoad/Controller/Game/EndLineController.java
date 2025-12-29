@@ -4,14 +4,8 @@ import CrossyRoad.Controller.Controller;
 import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
-import CrossyRoad.model.game.space.LoaderSpaceBuilder;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.model.game.elements.EndLine;
-import CrossyRoad.model.loader.Loader;
-import CrossyRoad.model.loader.ScreenType;
-import CrossyRoad.model.menu.Win;
-import CrossyRoad.state.GameState;
-import CrossyRoad.state.WinState;
 
 import java.io.IOException;
 

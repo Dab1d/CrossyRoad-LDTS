@@ -2,6 +2,8 @@ package CrossyRoad.command;
 
 import CrossyRoad.Game;
 
+import java.io.IOException;
+
 public class HelpCommand implements Command {
     private final Game game;
 
@@ -9,7 +11,7 @@ public class HelpCommand implements Command {
         this.game = game;
     }
 
-    public void execute() {
+    public void execute() throws IOException {
         game.goToHelp();
     }
 }

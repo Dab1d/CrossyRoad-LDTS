@@ -22,16 +22,13 @@ public class Game {
     private int level;
     private int score;
     private HUDView hud;
+    private StateFactory stateFactory;
     private static final int FINAL_LEVEL = 5;
 
     public Game() throws IOException, URISyntaxException, FontFormatException {
         this.gui = new LanternaGUI(20, 32);
-        this.state = new MenuState(
-                new Menu(
-                        new Loader(ScreenType.MENU.getFile()).getLines()
-                )
-        );
-
+        this.stateFactory = new StateFactory(this);
+        this.state = this.stateFactory.createMenuState();
         this.level = 1;
         this.score = 0;
         this.hud = new HUDView();
@@ -80,16 +77,16 @@ public class Game {
     public void initGame() throws IOException {
         this.score = 0;
         this.level = 1;
-        this.setState(new GameState(new LoaderSpaceBuilder(this.getLevel()).createSpace()));
+        this.setState(stateFactory.createGameState());
     }
 
     public void quitGame() {
         this.setState(null);
     }
 
-    public void pauseGame() {
+    public void pauseGame() throws IOException {
         this.previousState = this.state;
-        this.setState(new PauseState(new Pause()));
+        this.setState(this.stateFactory.createPauseState());
     }
 
     public void resumeGame() {
@@ -99,33 +96,25 @@ public class Game {
     public void returnToMenu() throws IOException {
         this.level = 1;
         this.score = 0;
-        this.setState(new MenuState(new Menu(new Loader("loadscreen").getLines())));
+        this.setState(this.stateFactory.createMenuState());
     }
 
-    public void goToHelp() {
-        this.setState(new HelpState(new Help()));
+    public void goToHelp() throws IOException {
+        this.setState(this.stateFactory.createHelpState());
     }
 
     public void winGame() throws IOException {
-        Loader loader = new Loader(ScreenType.WIN.getFile());
-        Win winMenu = new Win(loader.getLines());
-        this.setState(new WinState(winMenu));
+        this.setState(this.stateFactory.createWinState());
     }
 
 
     public void advanceLevel() throws IOException {
         if(this.level < FINAL_LEVEL) {
             this.level++;
-            this.setState(new GameState(new LoaderSpaceBuilder(this.getLevel()).createSpace()));
+            this.setState(this.stateFactory.createGameState());
         } else {
-            this.finishGame();
+            this.winGame();
         }
-    }
-
-    public void finishGame() throws IOException {
-        Loader loader = new Loader(ScreenType.WIN.getFile());
-        Win winMenu = new Win(loader.getLines());
-        this.setState(new WinState(winMenu));
     }
 
     public void loseGame() throws IOException {
@@ -133,7 +122,7 @@ public class Game {
         this.score = 0;
         Loader loader = new Loader(ScreenType.LOSE.getFile());
         GameOver gameOver = new GameOver(loader.getLines());
-        this.setState(new GameOverState(gameOver));
+        this.setState(this.stateFactory.createGameOverState());
     }
 
 

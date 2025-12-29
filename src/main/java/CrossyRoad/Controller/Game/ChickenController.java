@@ -4,7 +4,6 @@ import CrossyRoad.Controller.Controller;
 import CrossyRoad.Game;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
-import CrossyRoad.model.game.elements.Log;
 import CrossyRoad.model.game.space.Space;
 
 public class ChickenController extends Controller<Space> {
