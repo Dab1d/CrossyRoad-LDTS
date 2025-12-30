@@ -14,11 +14,13 @@ public class PauseStateTest {
     @Test
     public void testPauseStateInitialization() {
         Pause model = new Pause();
-       Controller<Pause> controller = mock(PauseController.class);
-        PauseState pauseState = new PauseState(model, controller);
+        Controller<Pause> controllerMock = mock(PauseController.class);
+        PauseViewer viewerMock = mock(PauseViewer.class);
 
-        assertSame(model, pauseState.getModel(), "O modelo retornado deve ser a mesma instância passada no construtor");
-        assertSame(controller, pauseState.getController(), "O controller retornado deve ser a mesma instância passada no construtor");
-        assertTrue(pauseState.getViewer() instanceof PauseViewer, "O viewer deve ser uma instância de PauseViewer");
+        PauseState pauseState = new PauseState(model, controllerMock, viewerMock);
+
+        assertSame(model, pauseState.getModel(), "O modelo deve ser a mesma instância");
+        assertSame(controllerMock, pauseState.getController(), "O controller deve ser a mesma instância");
+        assertSame(viewerMock, pauseState.getViewer(), "O viewer retornado deve ser exatamente o objeto injetado");
     }
 }

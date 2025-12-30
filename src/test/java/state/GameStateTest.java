@@ -7,28 +7,24 @@ import CrossyRoad.view.Viewer;
 import CrossyRoad.view.game.GameViewer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 public class GameStateTest {
     @Test
     public void gameStateInitializationTest() {
-
         Space spaceMock = mock(Space.class);
+        GameViewer viewerMock = mock(GameViewer.class);
         SpaceController controllerMock = mock(SpaceController.class);
 
-        GameState state = new GameState(spaceMock, controllerMock);
+        GameState state = new GameState(spaceMock, controllerMock, viewerMock);
 
         assertNotNull(state.getModel());
-        assertEquals(spaceMock, state.getModel());
-
+        assertSame(spaceMock, state.getModel());
         assertNotNull(state.getController());
-        assertEquals(controllerMock, state.getController());
-
+        assertSame(controllerMock, state.getController());
         Viewer<Space> viewer = state.getViewer();
         assertNotNull(viewer);
-        assertTrue(viewer instanceof GameViewer);
+        assertSame(viewerMock, viewer, "O viewer retornado deve ser a mesma instância injetada");
     }
 }

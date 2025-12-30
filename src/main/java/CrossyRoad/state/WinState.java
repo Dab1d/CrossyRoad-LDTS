@@ -1,14 +1,9 @@
 package CrossyRoad.state;
 
 import CrossyRoad.controller.Controller;
-import CrossyRoad.controller.Menu.WinController;
-import CrossyRoad.model.loader.Loader;
-import CrossyRoad.model.loader.ScreenType;
 import CrossyRoad.model.menu.Win;
 import CrossyRoad.view.Viewer;
-import CrossyRoad.view.menu.WinViewer;
 
-import java.io.IOException;
 
 public class WinState extends State<Win> {
     private final Controller<Win> controller;

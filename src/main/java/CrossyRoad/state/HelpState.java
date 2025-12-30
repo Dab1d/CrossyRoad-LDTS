@@ -19,7 +19,7 @@ public class HelpState extends State<Help> {
 
     @Override
     public Viewer<Help> getViewer() {
-        return new HelpView(getModel());
+        return viewer;
     }
 
     @Override

@@ -13,11 +13,21 @@ public class StateManager {
     private State state;
     private State previousState;
 
-    // Injeção de dependências pelo construtor
-    public StateManager(StateFactory stateFactory) throws IOException, URISyntaxException, FontFormatException {
+    /**
+     * Primary constructor that allows Dependency Injection.
+     * For testing (injecting mocks) or loading saved games.
+     */
+    public StateManager(StateFactory stateFactory, GameSession gameSession) throws IOException, URISyntaxException, FontFormatException {
         this.stateFactory = stateFactory;
-        this.gameSession = new GameSession();
+        this.gameSession = gameSession;
         this.state = stateFactory.createMenuState();
+    }
+    /**
+     * Convenience constructor for the main game loop.
+     * It initializes a default GameSession and delegates to the primary constructor.
+     */
+    public StateManager(StateFactory stateFactory) throws IOException, URISyntaxException, FontFormatException {
+        this(stateFactory, new GameSession());
     }
 
     public void initGame() throws IOException {
