@@ -1,9 +1,7 @@
 package CrossyRoad;
 
 import CrossyRoad.state.StateManager;
-import CrossyRoad.state.GameState;
 import CrossyRoad.gui.GUI;
-import CrossyRoad.view.menu.HUDView;
 
 import java.io.IOException;
 

@@ -2,7 +2,6 @@ package CrossyRoad;
 
 import CrossyRoad.state.GeneralStateFactory;
 import CrossyRoad.state.StateManager;
-import CrossyRoad.state.StateFactory;
 import CrossyRoad.gui.LanternaGUI;
 
 import java.awt.*;
@@ -14,11 +13,15 @@ public class Application {
         try {
             LanternaGUI gui = new LanternaGUI(20, 32);
             GameController controller = new GameController(new StateManager(new GeneralStateFactory()), gui);
+            startApp(controller);
 
-            controller.start();
-
-        } catch (IOException | URISyntaxException | FontFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static void startApp(GameController controller) throws IOException, URISyntaxException, FontFormatException {
+        controller.start();
+    }
 }
+
