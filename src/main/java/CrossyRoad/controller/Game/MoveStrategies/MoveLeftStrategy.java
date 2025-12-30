@@ -1,4 +1,4 @@
-package CrossyRoad.Controller.Game.MoveStrategies;
+package CrossyRoad.controller.Game.MoveStrategies;
 
 import CrossyRoad.model.Position;
 

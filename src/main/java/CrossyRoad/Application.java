@@ -1,5 +1,6 @@
 package CrossyRoad;
 
+import CrossyRoad.state.GeneralStateFactory;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.state.StateFactory;
 import CrossyRoad.gui.LanternaGUI;
@@ -12,7 +13,7 @@ public class Application {
     public static void main(String[] args) {
         try {
             LanternaGUI gui = new LanternaGUI(20, 32);
-            GameController controller = new GameController(new StateManager(new StateFactory()), gui);
+            GameController controller = new GameController(new StateManager(new GeneralStateFactory()), gui);
 
             controller.start();
 

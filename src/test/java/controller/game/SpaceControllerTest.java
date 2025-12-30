@@ -1,7 +1,8 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.SpaceController;
+import CrossyRoad.controller.Game.SpaceController;
 import CrossyRoad.model.game.elements.Car;
+import CrossyRoad.session.GameSession;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
@@ -23,6 +24,7 @@ public class SpaceControllerTest {
     private Space space;
     private SpaceController controller;
     private StateManager game;
+    private GameSession session;
 
     @BeforeEach
     public void setUp() {
@@ -46,6 +48,8 @@ public class SpaceControllerTest {
 
         // MOCK do Game (Simula o jogo sem abrir janelas reais)
         game = mock(StateManager.class);
+        session = mock(GameSession.class);
+        when(game.getGameSession()).thenReturn(session);
     }
 
     @Test
@@ -113,14 +117,10 @@ public class SpaceControllerTest {
     public void coinIsCollected_whenChickenMoves() throws IOException {
         Coin coin = new Coin(6,4);
         space.getCoins().add(coin);
-
         assertFalse(space.getCoins().isEmpty());
-
-        // Move a galinha para cima (para cima da moeda)
         controller.step(game, GUI.ACTION.UP, 0);
-
         assertTrue(space.getCoins().isEmpty(), "A moeda devia ter sido removida");
-        verify(game, times(1)).addScore();
+        verify(session, times(1)).addScore();
     }
 
     @Test

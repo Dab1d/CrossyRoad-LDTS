@@ -1,28 +1,27 @@
 package CrossyRoad.state;
 
-import CrossyRoad.Controller.Controller;
-import CrossyRoad.Controller.Menu.WinController;
-import CrossyRoad.model.loader.Loader;
-import CrossyRoad.model.loader.ScreenType;
+import CrossyRoad.controller.Controller;
 import CrossyRoad.model.menu.Win;
 import CrossyRoad.view.Viewer;
-import CrossyRoad.view.menu.WinViewer;
 
-import java.io.IOException;
 
 public class WinState extends State<Win> {
-    public WinState() throws IOException {
-        super(new Win(new Loader(ScreenType.WIN.getFile()).getLines()));
+    private final Controller<Win> controller;
+    private final Viewer<Win> viewer;
+
+    public WinState(Win model,Controller<Win> controller, Viewer<Win> viewer)  {
+        super(model);
+        this.controller = controller;
+        this.viewer = viewer;
     }
 
     @Override
     public Viewer<Win> getViewer() {
-        return new WinViewer(getModel());
+        return viewer;
     }
-
 
     @Override
     public Controller<Win> getController() {
-        return new WinController(getModel());
+        return controller;
     }
 }

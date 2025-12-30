@@ -1,6 +1,6 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.ChickenController;
+import CrossyRoad.controller.Game.ChickenController;
 import CrossyRoad.model.Position;
 import CrossyRoad.model.game.elements.Bush;
 import CrossyRoad.model.game.elements.Chicken;

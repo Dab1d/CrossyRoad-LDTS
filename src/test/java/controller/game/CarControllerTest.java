@@ -1,7 +1,7 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.CarController;
-import CrossyRoad.Controller.Game.MoveStrategies.MoveRightStrategy;
+import CrossyRoad.controller.Game.CarController;
+import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.elements.Car;

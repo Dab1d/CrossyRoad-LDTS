@@ -1,7 +1,7 @@
 package controller.menu;
 
-import CrossyRoad.Controller.Menu.MenusController;
 import CrossyRoad.command.Command;
+import CrossyRoad.controller.Menu.MenusController;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.NavigableMenu;
 import CrossyRoad.state.StateManager;

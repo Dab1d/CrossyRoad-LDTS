@@ -1,27 +1,28 @@
 package CrossyRoad.state;
 
-import CrossyRoad.Controller.Controller;
-import CrossyRoad.Controller.Menu.GameOverController;
-import CrossyRoad.model.loader.Loader;
-import CrossyRoad.model.loader.ScreenType;
+import CrossyRoad.controller.Controller;
 import CrossyRoad.model.menu.GameOver;
+import CrossyRoad.model.menu.Win;
 import CrossyRoad.view.Viewer;
 import CrossyRoad.view.menu.GameOverView;
 
-import java.io.IOException;
-
 public class GameOverState extends State<GameOver> {
-    public GameOverState() throws IOException {
-        super(new GameOver(new Loader(ScreenType.LOSE.getFile()).getLines()));
+    private final Controller<GameOver> controller;
+    private final Viewer<GameOver> viewer;
+
+    public GameOverState(GameOver model, Controller<GameOver> controller, Viewer<GameOver> viewer) {
+        super(model);
+        this.controller = controller;
+        this.viewer = viewer;
     }
 
     @Override
     public Viewer<GameOver> getViewer() {
-        return new GameOverView(getModel());
+        return viewer;
     }
 
     @Override
     public Controller<GameOver> getController() {
-        return new GameOverController(getModel());
+        return this.controller;
     }
 }

@@ -1,22 +1,25 @@
 package state;
 
-import CrossyRoad.Controller.Menu.HelpController;
+import CrossyRoad.controller.Menu.HelpController;
 import CrossyRoad.model.menu.Help;
-import CrossyRoad.model.menu.Pause;
 import CrossyRoad.state.HelpState;
 import CrossyRoad.view.menu.HelpView;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-/**
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
 public class HelpStateTest {
     @Test
-    public void testHelpState() {
-        HelpState helpState = new HelpState(new Help());
+    public void testHelpStateInitialization() {
+        Help model = new Help();
+        HelpView viewerMock = mock(HelpView.class);
+        HelpController controllerMock = mock(HelpController.class);
 
-        assertTrue(helpState.getModel() instanceof Help);
-        assertTrue(helpState.getViewer() instanceof HelpView);
-        assertTrue(helpState.getController() instanceof HelpController);
+        HelpState helpState = new HelpState(model, controllerMock, viewerMock);
+
+        assertEquals(model, helpState.getModel());
+        assertSame(viewerMock, helpState.getViewer());
+        assertSame(controllerMock, helpState.getController());
     }
 }
-*/

@@ -1,14 +1,12 @@
 package controller.game;
 
-import CrossyRoad.Controller.Game.EndLineController;
+import CrossyRoad.controller.Game.EndLineController;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.model.game.elements.Chicken;
 import CrossyRoad.model.game.elements.EndLine;
 import CrossyRoad.model.game.space.Space;
-import CrossyRoad.state.GameState;
-import CrossyRoad.state.WinState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 

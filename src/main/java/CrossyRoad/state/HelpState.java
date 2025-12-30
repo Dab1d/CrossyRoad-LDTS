@@ -1,24 +1,29 @@
 package CrossyRoad.state;
 
-import CrossyRoad.Controller.Controller;
-import CrossyRoad.Controller.Menu.HelpController;
+import CrossyRoad.controller.Controller;
+import CrossyRoad.controller.Menu.HelpController;
 import CrossyRoad.model.menu.Help;
+import CrossyRoad.model.menu.Win;
 import CrossyRoad.view.Viewer;
 import CrossyRoad.view.menu.HelpView;
 
 public class HelpState extends State<Help> {
+    private final Controller<Help> controller;
+    private final Viewer<Help> viewer;
 
-    public HelpState() {
-        super(new Help());
+    public HelpState(Help model, Controller<Help> controller, Viewer<Help> viewer) {
+        super(model);
+        this.controller = controller;
+        this.viewer = viewer;
     }
 
     @Override
     public Viewer<Help> getViewer() {
-        return new HelpView(getModel());
+        return viewer;
     }
 
     @Override
     public Controller<Help> getController() {
-        return new HelpController(getModel());
+        return controller;
     }
 }

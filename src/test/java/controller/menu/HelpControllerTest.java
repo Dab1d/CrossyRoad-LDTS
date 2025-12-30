@@ -1,6 +1,6 @@
 package controller.menu;
 
-import CrossyRoad.Controller.Menu.HelpController;
+import CrossyRoad.controller.Menu.HelpController;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.menu.Help;
 import CrossyRoad.state.StateManager;

@@ -1,6 +1,7 @@
-package CrossyRoad.Controller.Game;
+package CrossyRoad.controller.Game;
 
-import CrossyRoad.Controller.Controller;
+import CrossyRoad.controller.Controller;
+import CrossyRoad.session.GameSession;
 import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.Position;
@@ -24,7 +25,8 @@ public class CoinController extends Controller<Space> {
         while (it.hasNext()) {
             Coin coin = it.next();
             if (coin.getPosition().equals(chickenPos)) {
-                stateManager.addScore();
+                GameSession session = stateManager.getGameSession();
+                session.addScore();
                 it.remove();
             }
         }

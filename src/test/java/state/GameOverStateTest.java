@@ -1,28 +1,28 @@
 package state;
 
-import CrossyRoad.Controller.Menu.GameOverController;
+import CrossyRoad.controller.Menu.GameOverController;
 import CrossyRoad.model.menu.GameOver;
 import CrossyRoad.state.GameOverState;
-import CrossyRoad.view.Viewer;
 import CrossyRoad.view.menu.GameOverView;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-/**
+import static org.mockito.Mockito.mock;
+
 public class GameOverStateTest {
     @Test
-    public void gameOverStateTest() {
-        GameOverState state = new GameOverState(new GameOver());
+    public void gameOverStateInitializationTest() {
+        GameOver modelMock = mock(GameOver.class);
+        GameOverController controllerMock = mock(GameOverController.class);
+        GameOverView viewerMock = mock(GameOverView.class);
+
+        GameOverState state = new GameOverState(modelMock, controllerMock, viewerMock);
 
         assertNotNull(state.getModel());
-        assertTrue(state.getModel() instanceof GameOver);
-
-        Viewer<GameOver> viewer = state.getViewer();
-        assertNotNull(viewer);
-        assertTrue(viewer instanceof GameOverView);
-
+        assertEquals(modelMock, state.getModel());
         assertNotNull(state.getController());
-        assertTrue(state.getController() instanceof GameOverController);
+        assertEquals(controllerMock, state.getController());
+        assertNotNull(state.getViewer());
+        assertSame(viewerMock, state.getViewer(), "O viewer retornado deve ser o mesmo injetado no construtor");
     }
 }
-*/

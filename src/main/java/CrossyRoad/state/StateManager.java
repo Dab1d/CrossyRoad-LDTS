@@ -1,33 +1,45 @@
 package CrossyRoad.state;
 
+import CrossyRoad.session.GameSession;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class StateManager {
     private final StateFactory stateFactory;
+    private final GameSession gameSession;
+
     private State state;
     private State previousState;
-    private int level;
-    private int score;
-    private static final int FINAL_LEVEL = 5;
 
-
-    public StateManager(StateFactory stateFactory) throws IOException, URISyntaxException, FontFormatException {
+    /**
+     * Primary constructor that allows Dependency Injection.
+     * For testing (injecting mocks) or loading saved games.
+     */
+    public StateManager(StateFactory stateFactory, GameSession gameSession) throws IOException, URISyntaxException, FontFormatException {
         this.stateFactory = stateFactory;
-        resetLevel();
-        resetScore();
+        this.gameSession = gameSession;
         this.state = stateFactory.createMenuState();
+    }
+    /**
+     * Convenience constructor for the main game loop.
+     * It initializes a default GameSession and delegates to the primary constructor.
+     */
+    public StateManager(StateFactory stateFactory) throws IOException, URISyntaxException, FontFormatException {
+        this(stateFactory, new GameSession());
     }
 
     public void initGame() throws IOException {
-        resetScore();
-        resetLevel();
-        this.setState(stateFactory.createGameState(getLevel()));
+        gameSession.resetScore();
+        gameSession.resetLevel();
+        this.setState(stateFactory.createGameState(gameSession.getLevel()));
     }
 
-    public void quitGame() {
-        this.setState(null);
+    public void returnToMenu() throws IOException {
+        gameSession.resetLevel();
+        gameSession.resetScore();
+        setState(stateFactory.createMenuState());
     }
 
     public void pauseGame() throws IOException {
@@ -36,27 +48,25 @@ public class StateManager {
     }
 
     public void resumeGame() {
-        setState(this.getPrevious());
-    }
-
-    public void returnToMenu() throws IOException {
-        resetLevel();
-        resetScore();
-        setState(stateFactory.createMenuState());
-    }
-
-    public void goToHelp() throws IOException {
-        setState(stateFactory.createHelpState());
+        if (previousState != null) {
+            setState(this.getPrevious());
+        }
     }
 
     public void winGame() throws IOException {
         setState(stateFactory.createWinState());
     }
 
+    public void loseGame() throws IOException {
+//        gameSession.resetLevel();
+//        gameSession.resetScore();
+        setState(stateFactory.createGameOverState());
+    }
+
     public void advanceLevel() throws IOException {
-        if(this.level < FINAL_LEVEL) {
-            this.level++;
-            this.setState(stateFactory.createGameState(getLevel()));
+        if (!gameSession.isMaxLevel()) {
+            gameSession.nextLevel();
+            this.setState(stateFactory.createGameState(gameSession.getLevel()));
         } else {
             this.finishGame();
         }
@@ -66,21 +76,18 @@ public class StateManager {
         winGame();
     }
 
-    public void loseGame() throws IOException {
-        resetLevel();
-        resetScore();
-        setState(stateFactory.createGameOverState());
+    public void goToHelp() throws IOException {
+        setState(stateFactory.createHelpState());
     }
 
+    public void quitGame() {
+        this.setState(null);
+    }
 
+    // Setters and Getters
     public void setState(State state) { this.state = state; }
     public State getState() { return this.state; }
     public void setPrevious(State state) { this.previousState = state; }
     public State getPrevious() { return this.previousState; }
-    public int getLevel() { return level; }
-    public void setLevel(int level) { this.level = level; }
-    public int getScore() { return score; }
-    public void addScore() { score++; }
-    public void resetScore() { this.score = 0;}
-    public void resetLevel() { this.level =1;}
+    public GameSession getGameSession() {return this.gameSession;}
 }

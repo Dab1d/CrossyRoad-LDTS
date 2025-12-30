@@ -1,4 +1,4 @@
-package CrossyRoad.Controller;
+package CrossyRoad.controller;
 
 import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;

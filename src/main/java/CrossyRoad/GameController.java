@@ -10,12 +10,10 @@ import java.io.IOException;
 public class GameController {
     private final StateManager stateManager;
     private final GUI gui;
-    private final HUDView hud;
 
     public GameController(StateManager stateManager, GUI gui) {
         this.stateManager = stateManager;
         this.gui = gui;
-        this.hud = new HUDView();
     }
 
     public void start() throws IOException {
@@ -26,13 +24,10 @@ public class GameController {
             long startTime = System.currentTimeMillis();
 
             stateManager.getState().step(stateManager, gui, startTime);
-            if (stateManager.getState() instanceof GameState)  hud.draw(gui, stateManager.getScore(), stateManager.getLevel());
-
             gui.refresh();
 
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
-
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
             } catch (InterruptedException e) {

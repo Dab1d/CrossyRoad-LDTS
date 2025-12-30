@@ -26,7 +26,6 @@ class GameControllerTest {
         when(stateManager.getState())
                 .thenReturn(state)
                 .thenReturn(state)
-                .thenReturn(state)
                 .thenReturn(null);
 
         gameController.start();

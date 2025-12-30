@@ -1,6 +1,6 @@
-package CrossyRoad.Controller.Game;
+package CrossyRoad.controller.Game;
 
-import CrossyRoad.Controller.Controller;
+import CrossyRoad.controller.Controller;
 import CrossyRoad.model.game.space.Space;
 
 import java.util.Arrays;

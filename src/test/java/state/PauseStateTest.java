@@ -1,23 +1,26 @@
 package state;
 
-import CrossyRoad.Controller.Menu.PauseController;
+import CrossyRoad.controller.Controller;
+import CrossyRoad.controller.Menu.PauseController;
 import CrossyRoad.model.menu.Pause;
 import CrossyRoad.state.PauseState;
 import CrossyRoad.view.menu.PauseViewer;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class PauseStateTest {
     @Test
-    public void testPauseState() {
-        PauseState pauseState = new PauseState();
+    public void testPauseStateInitialization() {
+        Pause model = new Pause();
+        Controller<Pause> controllerMock = mock(PauseController.class);
+        PauseViewer viewerMock = mock(PauseViewer.class);
 
-        assertTrue(pauseState.getModel() instanceof Pause);
+        PauseState pauseState = new PauseState(model, controllerMock, viewerMock);
 
-        assertTrue(pauseState.getViewer() instanceof PauseViewer);
-
-        assertTrue(pauseState.getController() instanceof PauseController);
-
+        assertSame(model, pauseState.getModel(), "O modelo deve ser a mesma instância");
+        assertSame(controllerMock, pauseState.getController(), "O controller deve ser a mesma instância");
+        assertSame(viewerMock, pauseState.getViewer(), "O viewer retornado deve ser exatamente o objeto injetado");
     }
 }
