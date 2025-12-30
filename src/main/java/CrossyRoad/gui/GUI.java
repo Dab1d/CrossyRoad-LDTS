@@ -1,7 +1,6 @@
 package CrossyRoad.gui;
 
 import CrossyRoad.model.Position;
-import com.googlecode.lanterna.TextColor;
 
 import java.io.IOException;
 

@@ -15,8 +15,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class LanternaGUITest {
@@ -145,12 +144,19 @@ class LanternaGUITest {
     }
 
     @Test
-    void loadSquareFontMutationKiller() {
-        try {
-            AWTTerminalFontConfiguration config = gui.loadSquareFont();
+    void loadSquareFontMutationKiller() throws Exception {
+        AWTTerminalFontConfiguration config = gui.loadSquareFont();
+        assertNotNull(config, "O config da fonte não pode ser nulo");
+    }
 
-            assertNotNull(config);
-        } catch (Exception e) {
-        }
+    @Test
+    void testFullConstructor() {
+        assertDoesNotThrow(() -> {
+            try {
+                LanternaGUI realGui = new LanternaGUI(10, 10);
+                assertNotNull(realGui);
+                realGui.close();
+            } catch (java.awt.HeadlessException | IOException e) {}
+        });
     }
 }

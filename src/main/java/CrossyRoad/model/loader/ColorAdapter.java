@@ -1,7 +1,9 @@
 package CrossyRoad.model.loader;
 
 public class ColorAdapter {
-
+    private ColorAdapter() {
+        throw new UnsupportedOperationException("Utility class");
+    }
     public static String getHexColor(char code) {
         return switch (code) {
             case 'a' -> "#000000";      // Preto (devia ser ciano, mas não deu devido ao fundo da fonte ser preto)
