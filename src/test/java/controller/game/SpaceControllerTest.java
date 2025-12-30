@@ -160,4 +160,14 @@ public class SpaceControllerTest {
         // 3. Verifica que o loseGame NUNCA foi chamado
         verify(game, never()).loseGame();
     }
+    @Test
+    public void step_WhenChickenReachesEndLine_ExecutesAdvanceLevel() throws IOException {
+        CrossyRoad.model.game.elements.EndLine endLine = new CrossyRoad.model.game.elements.EndLine(6, 4);
+        if (space.getEndlines() == null) space.setEndLines(new ArrayList<>());
+        space.getEndlines().add(endLine);
+        // 2. Mover a galinha para cima (para a EndLine)
+        controller.step(game, GUI.ACTION.UP, 0);
+        // 3. Verifica se o controller avançou de nível
+        verify(game, times(1)).advanceLevel();
+    }
 }

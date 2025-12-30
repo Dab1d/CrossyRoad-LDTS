@@ -1,68 +1,53 @@
 package controller.game;
 
 import CrossyRoad.controller.Game.CarController;
-import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
-import CrossyRoad.state.StateManager;
 import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.elements.Car;
 import CrossyRoad.model.game.space.Space;
+import CrossyRoad.state.StateManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
-public class CarControllerTest {
+class CarControllerTest {
+    private CarController controller;
+    private Space space;
+    private Car car;
 
-    @Test
-    void carsDoNotMoveBefore400ms() {
-        // Arrange
-        Space space = new Space(10, 10);
-        Car car = new Car(2,2,1,new MoveRightStrategy());
-        space.setCars(List.of(car));
-
-        CarController controller = new CarController(space);
-        StateManager gameMock = mock(StateManager.class);
-
-        // Act
-        controller.step(gameMock, GUI.ACTION.NONE, 0);
-
-        // Assert
-        assertEquals(2, car.getPosition().getX());
+    @BeforeEach
+    void setUp() {
+        space = mock(Space.class);
+        car = mock(Car.class);
+        when(space.getCars()).thenReturn(Collections.singletonList(car));
+        when(space.getWidth()).thenReturn(20);
+        controller = new CarController(space);
     }
 
     @Test
-    void carsMoveRightAfter400ms() {
-        // Arrange
-        Space space = new Space(10, 10);
-        Car car = new Car(2,5,1,new MoveRightStrategy());
-        space.setCars(List.of(car));
-
-        CarController controller = new CarController(space);
-        StateManager gameMock = mock(StateManager.class);
-
-        // Act
-        controller.step(gameMock, GUI.ACTION.NONE, 400);
-
-        // Assert
-        assertEquals(3, car.getPosition().getX());
+    void step_DoesNotMoveBeforeThreshold() {
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 99);
+        verify(car, never()).updatePosition(anyInt());
     }
 
     @Test
-    void carWrapsAroundWhenExceedingWidth() {
-        // Arrange
-        Space space = new Space(10, 10);
-        Car car = new Car(9,5,1,new MoveRightStrategy());
-        space.setCars(List.of(car));
+    void step_MovesAtThreshold() {
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 100);
+        verify(car, times(1)).updatePosition(20);
+    }
 
-        CarController controller = new CarController(space);
-        StateManager gameMock = mock(StateManager.class);
+    @Test
+    void step_UpdatesLastMoveTime() {
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 100);
+        verify(car, times(1)).updatePosition(anyInt());
 
-        // Act
-        controller.step(gameMock, GUI.ACTION.NONE, 400);
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 150);
 
-        // Assert
-        assertEquals(0, car.getPosition().getX());
+        verify(car, times(1)).updatePosition(anyInt());
+
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 200);
+        verify(car, times(2)).updatePosition(anyInt());
     }
 }

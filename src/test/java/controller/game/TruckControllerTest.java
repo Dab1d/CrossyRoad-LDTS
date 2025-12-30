@@ -1,77 +1,50 @@
 package controller.game;
 
-import CrossyRoad.controller.Game.MoveStrategies.MoveLeftStrategy;
 import CrossyRoad.controller.Game.TruckController;
+import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.elements.Truck;
 import CrossyRoad.model.game.space.Space;
 import CrossyRoad.state.StateManager;
-import CrossyRoad.gui.GUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito; // Importar Mockito
 
-import java.util.ArrayList;
+import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-// Opcional: Para verificares se métodos foram chamados
+import static org.mockito.Mockito.*;
 
-
-public class TruckControllerTest {
-
-    private Space space;
+class TruckControllerTest {
     private TruckController controller;
-    private StateManager game; // Agora este será o Mock
+    private Space space;
+    private Truck truck;
 
     @BeforeEach
-    public void setup() {
-        // 1. Criar o Espaço e os Trucks "reais" (POJOs - Plain Old Java Objects)
-        // Não precisamos de "mockar" dados simples, é melhor usar os reais para garantir a lógica.
-        space = new Space(10, 10);
-
-        Truck truck1 = new Truck(0, 5, 1, new MoveLeftStrategy());
-        Truck truck2 = new Truck(9, 5, 1, new MoveLeftStrategy());
-
-        ArrayList<Truck> trucks = new ArrayList<>();
-        trucks.add(truck1);
-        trucks.add(truck2);
-        space.setTrucks(trucks);
-
+    void setUp() {
+        space = mock(Space.class);
+        truck = mock(Truck.class);
+        when(space.getTruck()).thenReturn(Collections.singletonList(truck));
+        when(space.getWidth()).thenReturn(20);
         controller = new TruckController(space);
-
-        // 2. MOCKITO MAGIC: Criar um Game falso
-        // Isto cria um objeto que "parece" um Game, mas todos os métodos estão vazios.
-        // Não carrega imagens, não lê ficheiros, não pede Factory.
-        game = Mockito.mock(StateManager.class);
     }
 
     @Test
-    public void step_movesTrucks() {
-        // Preparação
-        space.getTruck().get(0).getPosition().setX(5);
-        space.getTruck().get(1).getPosition().setX(7);
+    void step_MovesAtCorrectInterval() {
+        // Tenta mover antes de 350ms (349ms)
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 349);
+        verify(truck, never()).updatePosition(anyInt());
 
-        int truck1X = space.getTruck().get(0).getPosition().getX();
-        int truck2X = space.getTruck().get(1).getPosition().getX();
-
-        // Execução
-        // Passamos o 'game' falso. O controller aceita-o, mas se tentar chamar algo nele,
-        // não vai acontecer nada (a menos que configuremos comportamento, o que não é preciso aqui).
-        controller.step(game, GUI.ACTION.NONE, 500);
-
-        // Verificação
-        assertEquals(truck1X - 1, space.getTruck().get(0).getPosition().getX());
-        assertEquals(truck2X - 1, space.getTruck().get(1).getPosition().getX());
+        // Tenta mover aos 350ms
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 350);
+        verify(truck, times(1)).updatePosition(20);
     }
 
     @Test
-    public void step_wrapsTrucks() {
-        // Preparação: Truck na borda esquerda (0)
-        space.getTruck().get(0).getPosition().setX(0);
+    void step_MathMutationKiller() {
+        // 1. Move aos 350ms (lastMoveTime = 350)
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 350);
 
-        // Execução
-        controller.step(game, GUI.ACTION.NONE, 500);
-
-        // Verificação: Deve ir para a borda direita (9)
-        assertEquals(space.getWidth() - 1, space.getTruck().get(0).getPosition().getX());
+        // 2. Tenta mover aos 400ms.
+        // Correto: 400 - 350 = 50 (Falso)
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 400);
+        verify(truck, times(1)).updatePosition(anyInt());
     }
 }

@@ -1,54 +1,56 @@
 package controller.game;
 
-import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
 import CrossyRoad.controller.Game.RiverController;
-import CrossyRoad.state.StateManager;
+import CrossyRoad.gui.GUI;
 import CrossyRoad.model.game.elements.River;
 import CrossyRoad.model.game.space.Space;
+import CrossyRoad.state.StateManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
 class RiverControllerTest {
-
-    private Space space;
     private RiverController controller;
-    private StateManager game;
+    private Space space;
+    private River river;
 
     @BeforeEach
     void setUp() {
-        space = new Space(5, 5);
-
-        // Inicializa todas as listas
-        space.setBushes(new ArrayList<>());
-        space.setCars(new ArrayList<>());
-        space.setTrucks(new ArrayList<>());
-        space.setLogs(new ArrayList<>());
-        space.setRiver(new ArrayList<>());
-        space.setEndLines(new ArrayList<>());
-        space.setWalls(new ArrayList<>());
-        space.setCoins(new ArrayList<>());
-
-        game = mock(StateManager.class);
+        space = mock(Space.class);
+        river = mock(River.class);
+        when(space.getRiver()).thenReturn(Collections.singletonList(river));
+        when(space.getWidth()).thenReturn(20);
+        controller = new RiverController(space);
     }
 
     @Test
-    void step_movesRiverPositions() {
-        River r1 = new River(0,2,1,new MoveRightStrategy());
-        River r2 = new River(1,2,1,new MoveRightStrategy());
+    void step_FlowsAtCorrectInterval() {
+        // 199ms -> Não flui
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 199);
+        verify(river, never()).updateRiver(anyInt());
 
-        space.getRiver().add(r1);
-        space.getRiver().add(r2);
+        // 200ms -> Flui
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 200);
+        verify(river, times(1)).updateRiver(20);
+    }
 
-        controller = new RiverController(space);
+    @Test
+    void step_AccumulatesTimeCorrectly() {
+        // Move 1: 200ms
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 200);
+        // Move 2: 400ms (Delta = 200)
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 400);
 
-        controller.step(game, null, 500); // tempo suficiente para mover
-
-        // Verifica que as posições foram atualizadas
-        assert(r1.getPosition().getX() == 1);
-        assert(r2.getPosition().getX() == 2);
+        verify(river, times(2)).updateRiver(anyInt());
+    }
+    @Test
+    void step_MathMutationKiller() {
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 200);
+        verify(river, times(1)).updateRiver(anyInt());
+        controller.step(mock(StateManager.class), GUI.ACTION.NONE, 250);
+        verify(river, times(1)).updateRiver(anyInt());
     }
 }

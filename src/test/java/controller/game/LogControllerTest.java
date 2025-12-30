@@ -90,5 +90,53 @@ class LogControllerTest {
         assertEquals(5, chickenPos.getX());
         verify(logMock).updatePosition(20);
     }
+    @Test
+    void moveLog_ChickenDies_WhenPushedOutOfBounds_BoundaryCheck() {
+        // Cenário: Galinha no limite (x=19), tronco move-a para x=20 (fora do border=20)
+        Position chickenPos = new Position(19, 5);
+        when(chickenMock.getPosition()).thenReturn(chickenPos);
+        when(logMock.getPosition()).thenReturn(new Position(19, 5));
+
+        // O movimento delta é +1 -> resultando em 20 (>= width)
+        when(logMock.updatePosition(20)).thenReturn(1);
+        when(spaceMock.getLogs()).thenReturn(Collections.singletonList(logMock));
+
+        controller.step(stateManagerMock, GUI.ACTION.NONE, 200);
+
+        verify(spaceMock, times(1)).isChickenDead();
+        assertEquals(19, chickenPos.getX());
+    }
+
+    @Test
+    void moveLog_ChickenDies_LeftBoundary() {
+        // Cenário: Galinha em x=0, tronco move-a para x=-1 (delta -1)
+        Position chickenPos = new Position(0, 5);
+        when(chickenMock.getPosition()).thenReturn(chickenPos);
+        when(logMock.getPosition()).thenReturn(new Position(0, 5));
+
+        when(logMock.updatePosition(20)).thenReturn(-1);
+        when(spaceMock.getLogs()).thenReturn(Collections.singletonList(logMock));
+
+        controller.step(stateManagerMock, GUI.ACTION.NONE, 200);
+
+        verify(spaceMock).isChickenDead();
+        assertEquals(0, chickenPos.getX());
+    }
+    @Test
+    void moveLog_ChickenSurvives_AtZero_BoundaryCheck() {
+        // Scenario: Chicken at x=1, Log moves left (-1), resulting in x=0.
+        // x=0 is a valid position (index 0), so the chicken should NOT die.
+        Position chickenPos = new Position(1, 5);
+        when(chickenMock.getPosition()).thenReturn(chickenPos);
+        when(logMock.getPosition()).thenReturn(new Position(1, 5));
+
+        // Move delta is -1
+        when(logMock.updatePosition(20)).thenReturn(-1);
+        when(spaceMock.getLogs()).thenReturn(Collections.singletonList(logMock));
+
+        controller.step(stateManagerMock, GUI.ACTION.NONE, 200);
+        assertEquals(0, chickenPos.getX()); // Position updated to 0
+        verify(spaceMock, never()).isChickenDead(); // Crucial: Verify it did NOT die
+    }
 }
 
