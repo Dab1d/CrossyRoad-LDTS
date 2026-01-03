@@ -179,4 +179,22 @@ public class SpaceTest {
         space.setRiver(List.of(new River(10, 10, 1, null)));
         assertTrue(space.isChickenDead());
     }
+    @Test
+    void testChickenSurvivesAmidstObstacles() {
+        space.setChicken(new Chicken(10, 10));
+
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car(0, 0, 1, null));
+        space.setCars(cars);
+
+        List<Truck> trucks = new ArrayList<>();
+        trucks.add(new Truck(0, 1, 1, null));
+        space.setTrucks(trucks);
+
+        List<River> rivers = new ArrayList<>();
+        rivers.add(new River(0, 2, 1, null));
+        space.setRiver(rivers);
+
+        assertFalse(space.isChickenDead());
+    }
 }

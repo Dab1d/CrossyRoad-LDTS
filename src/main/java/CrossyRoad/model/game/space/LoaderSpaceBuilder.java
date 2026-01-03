@@ -1,14 +1,13 @@
 package CrossyRoad.model.game.space;
 
-
 import CrossyRoad.controller.Game.MoveStrategies.MoveLeftStrategy;
 import CrossyRoad.controller.Game.MoveStrategies.MoveRightStrategy;
 import CrossyRoad.model.game.elements.*;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,20 +15,25 @@ public class LoaderSpaceBuilder extends SpaceBuilder {
     private final int level;
     private final List<String> lines;
 
-
     public LoaderSpaceBuilder(int level) throws IOException {
         this.level = level;
 
-        URL resource = LoaderSpaceBuilder.class.getResource("/levels/lvl" + level + ".lvl");
-        BufferedReader br = new BufferedReader(new FileReader(resource.getFile()));
+        String filePath = "/levels/lvl" + level + ".lvl";
+        InputStream is = getClass().getResourceAsStream(filePath);
 
+        if (is == null) {
+            throw new IOException("Ficheiro de nível não encontrado dentro do JAR: " + filePath);
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
         lines = readLines(br);
     }
 
     private List<String> readLines(BufferedReader br) throws IOException {
         List<String> lines = new ArrayList<>();
-        for (String line; (line = br.readLine()) != null; )
+        String line;
+        while ((line = br.readLine()) != null) {
             lines.add(line);
+        }
         return lines;
     }
 
